@@ -27,35 +27,156 @@ namespace Notes
             main_richTextBox.Focus();
         }
 
+
+
+
+
+
         private void middleline_button_Click(object sender, EventArgs e)
         {
+            ToggleMiddleline();
+        }
 
+
+        private void ToggleMiddleline()
+        {
+            if (main_richTextBox.SelectionFont.Style.ToString().Contains("Strikeout"))  
+            {
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style & ~FontStyle.Strikeout);   
+            }
+            else  
+            {
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style | FontStyle.Strikeout); 
+            }
+            main_richTextBox.Focus();
         }
 
         private void bold_button_Click(object sender, EventArgs e)
         {
-            if(main_richTextBox.SelectionFont.Style == FontStyle.Bold)
+            ToggleBold();
+        }
+
+
+
+        private void ToggleBold()
+        {
+            if (main_richTextBox.SelectionFont.Style.ToString().Contains("Bold")) //If the selected character is Bold
             {
-                main_richTextBox.SelectionFont = new Font(main_richTextBox.Font, FontStyle.Regular);
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style & ~FontStyle.Bold);  //Make the selected character unBold
             }
-            else
+            else //If the selected character is unBold
             {
-                main_richTextBox.SelectionFont = new Font(main_richTextBox.Font, FontStyle.Bold);
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style | FontStyle.Bold);//Make the selected character Bold
             }
             main_richTextBox.Focus();
         }
 
+
+
         private void Italic_button_Click(object sender, EventArgs e)
         {
-            if (main_richTextBox.SelectionFont.Style == FontStyle.Italic)
+            ToggleItalic();
+        }
+
+        private void ToggleItalic()
+        {
+            if (main_richTextBox.SelectionFont.Style.ToString().Contains("Italic"))
             {
-                main_richTextBox.SelectionFont = new Font(main_richTextBox.Font, FontStyle.Regular);
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style & ~FontStyle.Italic);
             }
             else
             {
-                main_richTextBox.SelectionFont = new Font(main_richTextBox.Font, FontStyle.Italic);
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style | FontStyle.Italic);
             }
             main_richTextBox.Focus();
         }
+
+
+
+        private void underline_button_Click(object sender, EventArgs e)
+        {
+            ToggleUnderline();
+        }
+
+
+
+        private void ToggleUnderline()
+        {
+            if (main_richTextBox.SelectionFont.Style.ToString().Contains("Underline"))
+            {
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style & ~FontStyle.Underline);
+            }
+            else
+            {
+                main_richTextBox.SelectionFont = new Font(main_richTextBox.SelectionFont, main_richTextBox.SelectionFont.Style | FontStyle.Underline);
+            }
+            main_richTextBox.Focus();
+        }
+
+
+   
+
+        private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+             if (e.KeyData == (Keys.Control | Keys.I))
+            {
+                e.SuppressKeyPress = true;
+                ToggleItalic();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.U))
+            {
+                e.SuppressKeyPress = true;
+                ToggleUnderline();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.B))
+            {
+                e.SuppressKeyPress = true;
+                ToggleBold();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.K))
+            {
+                e.SuppressKeyPress = true;
+                ToggleMiddleline();
+            }
+        }
+
+
+
+
+
+        ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
+        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        //{ 
+            
+        //    if (keyData == (Keys.Control | Keys.U))
+        //    {
+        //        ToggleUnderline();
+
+        //    }
+        //    if (keyData == (Keys.Control | Keys.I))
+        //    {
+        //        //ToggleItalic();
+        //    }
+        //    if (keyData == (Keys.Control | Keys.K))
+        //    {
+        //        ToggleMiddleline();
+        //    }
+        //    if (keyData == (Keys.Control | Keys.B))
+        //    {
+        //        ToggleBold();
+        //    }
+         
+             
+
+        //    return base.ProcessCmdKey(ref msg, keyData);
+        //}
+
+        //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
+
+
+
+
+
     }
 }
