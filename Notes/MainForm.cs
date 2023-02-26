@@ -176,24 +176,28 @@ namespace Notes
             //main_richTextBox.SelectedText = selectionToDublicate;
 
 
-             
 
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
 
 
+           
             int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
             string currentlinetext = main_richTextBox.Lines[currentline];
 
 
+
+
             main_richTextBox.Select(firstcharindex, currentlinetext.Length);
 
-            main_richTextBox.SelectionStart += main_richTextBox.SelectionLength; // Move the curser after the selected text
+            main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
 
             main_richTextBox.SelectionLength = 0; // Deselect the text
 
 
             // set the selection to the text to be inserted
             main_richTextBox.SelectedText = "\n" + currentlinetext; // Add New Line and insert the textx
+
+
 
         }
 
@@ -313,6 +317,20 @@ namespace Notes
             else
             {
                 main_richTextBox.WordWrap = true;
+            }
+        }
+
+        private void margin_button_Click(object sender, EventArgs e)
+        {
+            main_richTextBox.RightMargin = main_richTextBox.Size.Width -35;
+        }
+ 
+        private void zoom_richtextbox_trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            
+            if (zoom_richtextbox_trackBar.Value > 0)
+            { 
+                main_richTextBox.ZoomFactor = zoom_richtextbox_trackBar.Value;
             }
         }
 

@@ -42,6 +42,9 @@
             this.underline_button = new System.Windows.Forms.Button();
             this.endLine_button = new System.Windows.Forms.Button();
             this.wrapText_button = new System.Windows.Forms.Button();
+            this.margin_button = new System.Windows.Forms.Button();
+            this.zoom_richtextbox_trackBar = new System.Windows.Forms.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // main_richTextBox
@@ -58,10 +61,9 @@
             this.main_richTextBox.Name = "main_richTextBox";
             this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.main_richTextBox.ShowSelectionMargin = true;
-            this.main_richTextBox.Size = new System.Drawing.Size(333, 296);
+            this.main_richTextBox.Size = new System.Drawing.Size(333, 350);
             this.main_richTextBox.TabIndex = 0;
             this.main_richTextBox.Text = "";
-            this.main_richTextBox.WordWrap = false;
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
             // 
             // standart_view_button
@@ -191,11 +193,31 @@
             this.wrapText_button.UseVisualStyleBackColor = true;
             this.wrapText_button.Click += new System.EventHandler(this.wrapText_button_Click);
             // 
+            // margin_button
+            // 
+            this.margin_button.Location = new System.Drawing.Point(138, 112);
+            this.margin_button.Name = "margin_button";
+            this.margin_button.Size = new System.Drawing.Size(75, 23);
+            this.margin_button.TabIndex = 14;
+            this.margin_button.Text = "margin";
+            this.margin_button.UseVisualStyleBackColor = true;
+            this.margin_button.Click += new System.EventHandler(this.margin_button_Click);
+            // 
+            // zoom_richtextbox_trackBar
+            // 
+            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(212, 506);
+            this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
+            this.zoom_richtextbox_trackBar.Size = new System.Drawing.Size(104, 45);
+            this.zoom_richtextbox_trackBar.TabIndex = 15;
+            this.zoom_richtextbox_trackBar.ValueChanged += new System.EventHandler(this.zoom_richtextbox_trackBar_ValueChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 450);
+            this.ClientSize = new System.Drawing.Size(355, 539);
+            this.Controls.Add(this.zoom_richtextbox_trackBar);
+            this.Controls.Add(this.margin_button);
             this.Controls.Add(this.wrapText_button);
             this.Controls.Add(this.endLine_button);
             this.Controls.Add(this.underline_button);
@@ -213,7 +235,9 @@
             this.Name = "MainForm";
             this.Text = "Notes";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -233,5 +257,7 @@
         private Button underline_button;
         private Button endLine_button;
         private Button wrapText_button;
+        private Button margin_button;
+        private TrackBar zoom_richtextbox_trackBar;
     }
 }
