@@ -45,6 +45,7 @@
             this.margin_button = new System.Windows.Forms.Button();
             this.zoom_richtextbox_trackBar = new System.Windows.Forms.TrackBar();
             this.form_opacity_trackBar = new System.Windows.Forms.TrackBar();
+            this.onTop_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -86,6 +87,7 @@
             this.new_note_button.TabIndex = 2;
             this.new_note_button.Text = "+";
             this.new_note_button.UseVisualStyleBackColor = true;
+            this.new_note_button.Click += new System.EventHandler(this.new_note_button_Click);
             // 
             // start_on_startup_button
             // 
@@ -207,7 +209,8 @@
             // 
             // zoom_richtextbox_trackBar
             // 
-            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(212, 506);
+            this.zoom_richtextbox_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(242, 506);
             this.zoom_richtextbox_trackBar.Minimum = 1;
             this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
             this.zoom_richtextbox_trackBar.Size = new System.Drawing.Size(104, 45);
@@ -217,7 +220,8 @@
             // 
             // form_opacity_trackBar
             // 
-            this.form_opacity_trackBar.Location = new System.Drawing.Point(28, 509);
+            this.form_opacity_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.form_opacity_trackBar.Location = new System.Drawing.Point(-4, 506);
             this.form_opacity_trackBar.Maximum = 100;
             this.form_opacity_trackBar.Minimum = 50;
             this.form_opacity_trackBar.Name = "form_opacity_trackBar";
@@ -226,11 +230,22 @@
             this.form_opacity_trackBar.Value = 100;
             this.form_opacity_trackBar.ValueChanged += new System.EventHandler(this.form_opacity_trackBar_ValueChanged);
             // 
+            // onTop_button
+            // 
+            this.onTop_button.Location = new System.Drawing.Point(27, 123);
+            this.onTop_button.Name = "onTop_button";
+            this.onTop_button.Size = new System.Drawing.Size(75, 23);
+            this.onTop_button.TabIndex = 17;
+            this.onTop_button.Text = "OnTop";
+            this.onTop_button.UseVisualStyleBackColor = true;
+            this.onTop_button.Click += new System.EventHandler(this.onTop_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 539);
+            this.Controls.Add(this.onTop_button);
             this.Controls.Add(this.form_opacity_trackBar);
             this.Controls.Add(this.zoom_richtextbox_trackBar);
             this.Controls.Add(this.margin_button);
@@ -277,5 +292,6 @@
         private Button margin_button;
         private TrackBar zoom_richtextbox_trackBar;
         private TrackBar form_opacity_trackBar;
+        private Button onTop_button;
     }
 }

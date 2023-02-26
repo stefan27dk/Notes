@@ -337,6 +337,30 @@ namespace Notes
 
 
 
+ 
+
+
+        private void onTop_button_Click(object sender, EventArgs e)
+        {
+            if (this.TopMost == false)
+            {
+                this.TopMost = true;
+            }
+            else
+            {
+                this.TopMost = false;
+            }
+        }
+
+        private void new_note_button_Click(object sender, EventArgs e)
+        {
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+        }
+
+
+
+
 
         ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
         //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
