@@ -44,7 +44,9 @@
             this.wrapText_button = new System.Windows.Forms.Button();
             this.margin_button = new System.Windows.Forms.Button();
             this.zoom_richtextbox_trackBar = new System.Windows.Forms.TrackBar();
+            this.form_opacity_trackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // main_richTextBox
@@ -206,16 +208,30 @@
             // zoom_richtextbox_trackBar
             // 
             this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(212, 506);
+            this.zoom_richtextbox_trackBar.Minimum = 1;
             this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
             this.zoom_richtextbox_trackBar.Size = new System.Drawing.Size(104, 45);
             this.zoom_richtextbox_trackBar.TabIndex = 15;
+            this.zoom_richtextbox_trackBar.Value = 1;
             this.zoom_richtextbox_trackBar.ValueChanged += new System.EventHandler(this.zoom_richtextbox_trackBar_ValueChanged);
+            // 
+            // form_opacity_trackBar
+            // 
+            this.form_opacity_trackBar.Location = new System.Drawing.Point(28, 509);
+            this.form_opacity_trackBar.Maximum = 100;
+            this.form_opacity_trackBar.Minimum = 50;
+            this.form_opacity_trackBar.Name = "form_opacity_trackBar";
+            this.form_opacity_trackBar.Size = new System.Drawing.Size(104, 45);
+            this.form_opacity_trackBar.TabIndex = 16;
+            this.form_opacity_trackBar.Value = 100;
+            this.form_opacity_trackBar.ValueChanged += new System.EventHandler(this.form_opacity_trackBar_ValueChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 539);
+            this.Controls.Add(this.form_opacity_trackBar);
             this.Controls.Add(this.zoom_richtextbox_trackBar);
             this.Controls.Add(this.margin_button);
             this.Controls.Add(this.wrapText_button);
@@ -236,6 +252,7 @@
             this.Text = "Notes";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,5 +276,6 @@
         private Button wrapText_button;
         private Button margin_button;
         private TrackBar zoom_richtextbox_trackBar;
+        private TrackBar form_opacity_trackBar;
     }
 }

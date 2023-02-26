@@ -327,11 +327,12 @@ namespace Notes
  
         private void zoom_richtextbox_trackBar_ValueChanged(object sender, EventArgs e)
         {
-            
-            if (zoom_richtextbox_trackBar.Value > 0)
-            { 
-                main_richTextBox.ZoomFactor = zoom_richtextbox_trackBar.Value;
-            }
+            main_richTextBox.ZoomFactor = zoom_richtextbox_trackBar.Value;
+        }
+
+        private void form_opacity_trackBar_ValueChanged(object sender, EventArgs e)
+        {
+            this.Opacity = form_opacity_trackBar.Value * 0.01;  // Adjust Form Opacity
         }
 
 
