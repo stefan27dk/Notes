@@ -40,6 +40,7 @@
             this.Italic_button = new System.Windows.Forms.Button();
             this.crossout_button = new System.Windows.Forms.Button();
             this.underline_button = new System.Windows.Forms.Button();
+            this.endLine_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // main_richTextBox
@@ -49,14 +50,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.main_richTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.main_richTextBox.EnableAutoDragDrop = true;
+            this.main_richTextBox.HideSelection = false;
             this.main_richTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.main_richTextBox.Location = new System.Drawing.Point(-2, 100);
+            this.main_richTextBox.Location = new System.Drawing.Point(10, 150);
             this.main_richTextBox.MaxLength = 999999999;
             this.main_richTextBox.Name = "main_richTextBox";
+            this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.main_richTextBox.ShowSelectionMargin = true;
-            this.main_richTextBox.Size = new System.Drawing.Size(354, 346);
+            this.main_richTextBox.Size = new System.Drawing.Size(333, 296);
             this.main_richTextBox.TabIndex = 0;
             this.main_richTextBox.Text = "";
+            this.main_richTextBox.WordWrap = false;
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
             // 
             // standart_view_button
@@ -166,11 +170,22 @@
             this.underline_button.UseVisualStyleBackColor = true;
             this.underline_button.Click += new System.EventHandler(this.underline_button_Click);
             // 
+            // endLine_button
+            // 
+            this.endLine_button.Location = new System.Drawing.Point(25, 104);
+            this.endLine_button.Name = "endLine_button";
+            this.endLine_button.Size = new System.Drawing.Size(75, 23);
+            this.endLine_button.TabIndex = 12;
+            this.endLine_button.Text = "End";
+            this.endLine_button.UseVisualStyleBackColor = true;
+            this.endLine_button.Click += new System.EventHandler(this.endLine_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 450);
+            this.Controls.Add(this.endLine_button);
             this.Controls.Add(this.underline_button);
             this.Controls.Add(this.crossout_button);
             this.Controls.Add(this.Italic_button);
@@ -185,6 +200,7 @@
             this.Controls.Add(this.main_richTextBox);
             this.Name = "MainForm";
             this.Text = "Notes";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -203,5 +219,6 @@
         private Button Italic_button;
         private Button crossout_button;
         private Button underline_button;
+        private Button endLine_button;
     }
 }

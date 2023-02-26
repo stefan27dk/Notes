@@ -1,3 +1,6 @@
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace Notes
 {
     public partial class MainForm : Form
@@ -136,7 +139,93 @@ namespace Notes
         }
 
 
-   
+
+
+        private void SelectLine()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+
+            string currentlinetext = main_richTextBox.Lines[currentline];
+
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+
+
+        }
+        
+
+
+
+
+
+        private void DublicateText()
+        {
+            //string selectionToDublicate = main_richTextBox.SelectedText;
+            //// keep all values that will change
+            //int oldStart = main_richTextBox.SelectionStart;
+            //int oldLength = main_richTextBox.SelectionLength;
+
+            //// 
+            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength;
+            //main_richTextBox.SelectionLength = 0;
+
+
+            //// set the selection to the text to be inserted
+            //main_richTextBox.SelectedText = selectionToDublicate;
+
+
+             
+
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            string currentlinetext = main_richTextBox.Lines[currentline];
+
+
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+            main_richTextBox.SelectionStart += main_richTextBox.SelectionLength; // Move the curser after the selected text
+
+            main_richTextBox.SelectionLength = 0; // Deselect the text
+
+
+            // set the selection to the text to be inserted
+            main_richTextBox.SelectedText = "\n" + currentlinetext; // Add New Line and insert the textx
+
+        }
+
+
+
+       private void LineNumberRun()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            main_richTextBox.SelectedText = "\n" + $"{currentline}"; // Add New Line and insert the textx
+        }
+
+
+
+
+        private void EndLine()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            string currentlinetext = main_richTextBox.Lines[currentline];
+
+
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+            main_richTextBox.SelectionStart += main_richTextBox.SelectionLength; // Move the curser after the selected text
+
+            main_richTextBox.SelectionLength = 0; // Deselect the text
+        }
+
+
 
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -181,9 +270,39 @@ namespace Notes
                 e.SuppressKeyPress = true;
                 AlignTextRight();
             }
+            else if (e.KeyData == (Keys.Control | Keys.Q))
+            {
+                e.SuppressKeyPress = true;
+                SelectLine();
+            }
+             else if (e.KeyData == (Keys.Control | Keys.D))
+            {
+                e.SuppressKeyPress = true;
+                DublicateText();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.W))
+            {
+                e.SuppressKeyPress = true;
+                EndLine();
+            }
+           else if (e.KeyData == (Keys.Control | Keys.L))
+            {
+                e.SuppressKeyPress = true;
+                LineNumberRun();
+            }
+          
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
 
         }
 
+        private void endLine_button_Click(object sender, EventArgs e)
+        {
+            EndLine();
+            main_richTextBox.Focus();
+        }
 
 
 
@@ -191,7 +310,7 @@ namespace Notes
         ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
         //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         //{ 
-            
+
         //    if (keyData == (Keys.Control | Keys.U))
         //    {
         //        ToggleUnderline();
@@ -209,8 +328,8 @@ namespace Notes
         //    {
         //        ToggleBold();
         //    }
-         
-             
+
+
 
         //    return base.ProcessCmdKey(ref msg, keyData);
         //}
