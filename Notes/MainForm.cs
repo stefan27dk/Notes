@@ -9,22 +9,44 @@ namespace Notes
 
          
 
-        private void align_txt_left_button_Click(object sender, EventArgs e)
+        private void AlignTextLeft()
         {
             main_richTextBox.SelectionAlignment = HorizontalAlignment.Left;
             main_richTextBox.Focus();
         }
 
-        private void align_txt_middle_button_Click(object sender, EventArgs e)
+        private void align_txt_left_button_Click(object sender, EventArgs e)
+        {
+            AlignTextLeft();
+        }
+
+
+
+        private void AlignTextMiddle()
         {
             main_richTextBox.SelectionAlignment = HorizontalAlignment.Center;
             main_richTextBox.Focus();
         }
 
-        private void align_txt_right_button_Click(object sender, EventArgs e)
+
+        private void align_txt_middle_button_Click(object sender, EventArgs e)
+        {
+            AlignTextMiddle();
+        }
+
+
+
+
+        private void AlignTextRight()
         {
             main_richTextBox.SelectionAlignment = HorizontalAlignment.Right;
             main_richTextBox.Focus();
+        }
+
+
+        private void align_txt_right_button_Click(object sender, EventArgs e)
+        {
+            AlignTextRight();
         }
 
 
@@ -119,7 +141,7 @@ namespace Notes
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
 
-             if (e.KeyData == (Keys.Control | Keys.I))
+            if (e.KeyData == (Keys.Control | Keys.I))
             {
                 e.SuppressKeyPress = true;
                 ToggleItalic();
@@ -139,6 +161,27 @@ namespace Notes
                 e.SuppressKeyPress = true;
                 ToggleMiddleline();
             }
+            else if (e.KeyData == (Keys.Alt | Keys.Left))
+            {
+                e.SuppressKeyPress = true;
+                AlignTextLeft();
+            }
+            else if (e.KeyData == (Keys.Alt | Keys.Right))
+            {
+                e.SuppressKeyPress = true;
+                AlignTextRight();
+            }
+            else if (e.KeyData == (Keys.Alt | Keys.Up))
+            {
+                e.SuppressKeyPress = true;
+                AlignTextMiddle();
+            }
+            else if (e.KeyData == (Keys.Alt | Keys.Right))
+            {
+                e.SuppressKeyPress = true;
+                AlignTextRight();
+            }
+
         }
 
 
