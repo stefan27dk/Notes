@@ -41,6 +41,7 @@
             this.crossout_button = new System.Windows.Forms.Button();
             this.underline_button = new System.Windows.Forms.Button();
             this.endLine_button = new System.Windows.Forms.Button();
+            this.wrapText_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // main_richTextBox
@@ -180,11 +181,22 @@
             this.endLine_button.UseVisualStyleBackColor = true;
             this.endLine_button.Click += new System.EventHandler(this.endLine_button_Click);
             // 
+            // wrapText_button
+            // 
+            this.wrapText_button.Location = new System.Drawing.Point(259, 111);
+            this.wrapText_button.Name = "wrapText_button";
+            this.wrapText_button.Size = new System.Drawing.Size(75, 23);
+            this.wrapText_button.TabIndex = 13;
+            this.wrapText_button.Text = "Wrap";
+            this.wrapText_button.UseVisualStyleBackColor = true;
+            this.wrapText_button.Click += new System.EventHandler(this.wrapText_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 450);
+            this.Controls.Add(this.wrapText_button);
             this.Controls.Add(this.endLine_button);
             this.Controls.Add(this.underline_button);
             this.Controls.Add(this.crossout_button);
@@ -220,5 +232,6 @@
         private Button crossout_button;
         private Button underline_button;
         private Button endLine_button;
+        private Button wrapText_button;
     }
 }

@@ -304,6 +304,18 @@ namespace Notes
             main_richTextBox.Focus();
         }
 
+        private void wrapText_button_Click(object sender, EventArgs e)
+        {
+            if(main_richTextBox.WordWrap == true)
+            {
+                main_richTextBox.WordWrap = false;
+            }
+            else
+            {
+                main_richTextBox.WordWrap = true;
+            }
+        }
+
 
 
 
