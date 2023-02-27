@@ -184,7 +184,8 @@ namespace Notes
 
             //// set the selection to the text to be inserted
             //main_richTextBox.SelectedText = selectionToDublicate;
-
+             
+           
             ToggleWordWrap();
 
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
@@ -208,7 +209,8 @@ namespace Notes
 
             main_richTextBox.SelectionLength = 0; // Deselect the text
             ToggleWordWrap();
-
+            
+         
         }
 
 
