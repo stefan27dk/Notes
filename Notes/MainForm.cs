@@ -199,9 +199,9 @@ namespace Notes
 
             main_richTextBox.Select(firstcharindex, currentlinetext.Length);
 
-            main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
+            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
 
-            main_richTextBox.SelectionLength = 0; // Deselect the text
+            //main_richTextBox.SelectionLength = 0; // Deselect the text
 
 
             // set the selection to the text to be inserted
@@ -213,7 +213,97 @@ namespace Notes
 
 
 
-       private void LineNumberRun()
+
+
+        private void EnterNewLineBefore()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            string currentlinetext = main_richTextBox.Lines[currentline]; 
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length); 
+            // Set the selection to the text to be inserted
+            main_richTextBox.SelectedText = "\n" + currentlinetext; // Add New Line and insert the textx
+        }
+
+
+
+
+
+
+
+        private void EnterNewLineBeforeAndMoveCursor()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            string currentlinetext = main_richTextBox.Lines[currentline];
+
+
+
+
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
+
+            // // Deselect the text
+
+
+            // set the selection to the text to be inserted
+
+            main_richTextBox.SelectionLength = 0;
+            main_richTextBox.SelectedText = "\n"; // Add New Line and insert the textx
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+            main_richTextBox.SelectionLength = 0;
+
+
+
+
+        }
+
+
+
+        private void StartLine()
+        {
+            int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+
+
+            int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            string currentlinetext = main_richTextBox.Lines[currentline];
+
+
+
+
+            main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
+
+            // // Deselect the text
+
+
+            // set the selection to the text to be inserted
+
+            main_richTextBox.SelectionLength = 0;
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        private void LineNumberRun()
         {
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
             int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
@@ -299,10 +389,25 @@ namespace Notes
                 e.SuppressKeyPress = true;
                 EndLine();
             }
-           else if (e.KeyData == (Keys.Control | Keys.L))
+            else if (e.KeyData == (Keys.Control | Keys.G))
+            {
+                e.SuppressKeyPress = true;
+                StartLine();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.L))
             {
                 e.SuppressKeyPress = true;
                 LineNumberRun();
+            } 
+            else if (e.KeyData == (Keys.Control | Keys.Enter))
+            {
+                e.SuppressKeyPress = true;
+                EnterNewLineBefore();
+            }
+            else if (e.KeyData == (Keys.Control | Keys.Shift | Keys.Enter))
+            {
+                e.SuppressKeyPress = true;
+                EnterNewLineBeforeAndMoveCursor();
             }
           
         }
