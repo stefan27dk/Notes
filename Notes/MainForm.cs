@@ -415,7 +415,8 @@ namespace Notes
         {
             int ScreenW = Screen.PrimaryScreen.Bounds.Width;
             this.Size = new Size(360, 400);
-            this.Location = new Point((ScreenW) - (this.Width), 0); 
+            this.Location = new Point((ScreenW) - (this.Width), 0);
+            this.Text = fileName;
         }
 
 
@@ -568,6 +569,7 @@ namespace Notes
             // Save Code
             Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
             main_richTextBox.SaveFile(fileName, RichTextBoxStreamType.RichText);
+            this.Text = fileName;
         }
 
 
