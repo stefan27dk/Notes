@@ -18,6 +18,8 @@ namespace Notes
         }
 
         string path = $"C:\\Notes\\";
+        string fileName = "";
+        bool save = true;
         MainForm newForm;
 
         private void AlignTextLeft()
@@ -327,6 +329,7 @@ namespace Notes
                 {
                     var newNoteForm = new MainForm();
                     newNoteForm.main_richTextBox.LoadFile(file);
+                    newNoteForm.fileName = file;
                     newNoteForm.Show();
                     Application.Run();
                 }).Start();
@@ -437,22 +440,22 @@ namespace Notes
 
 
         private void SaveTextToFile()
-        {
+        { 
             string guiId = System.Guid.NewGuid().ToString();
-            string fileName;
+         
 
             if (main_richTextBox.Text.Length > 0) // If not empty
             {
               string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
-               
-
-                if(main_richTextBox.Text.Length >= 10) // If has 10 chars
+              txt = Regex.Replace(txt, @"\t|\n|\r", "");
+     
+                if (txt.Length >= 10) // If it has at lerast 10 chars
                 {
                     fileName = $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf"; 
                 }
                 else // If it has less than 10 chars
                 {
-                    fileName = $"Note - {txt.Substring(0, main_richTextBox.Text.Length) + "____" + guiId}.rtf"; 
+                    fileName = $"Note - {txt.Substring(0, txt.Length) + "____" + guiId}.rtf"; 
                 }
 
                 Directory.CreateDirectory(path);
@@ -477,7 +480,10 @@ namespace Notes
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveTextToFile();
+            if(save)
+            {
+               SaveTextToFile(); 
+            }
         }
 
 
@@ -540,42 +546,52 @@ namespace Notes
             CloseAllForms(); 
         }
 
-
-
-
-
-            ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
-            //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-            //{ 
-
-            //    if (keyData == (Keys.Control | Keys.U))
-            //    {
-            //        ToggleUnderline();
-
-            //    }
-            //    if (keyData == (Keys.Control | Keys.I))
-            //    {
-            //        //ToggleItalic();
-            //    }
-            //    if (keyData == (Keys.Control | Keys.K))
-            //    {
-            //        ToggleMiddleline();
-            //    }
-            //    if (keyData == (Keys.Control | Keys.B))
-            //    {
-            //        ToggleBold();
-            //    }
-
-
-
-            //    return base.ProcessCmdKey(ref msg, keyData);
-            //}
-
-            //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
-
-
-
-
-
+        private void delete_note_button_Click(object sender, EventArgs e)
+        {
+            save = false;
+            if (File.Exists(path + fileName))
+            {
+                File.Delete(path + fileName);
+                this.Close();
+            }
         }
+
+
+
+
+
+        ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
+        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        //{ 
+
+        //    if (keyData == (Keys.Control | Keys.U))
+        //    {
+        //        ToggleUnderline();
+
+        //    }
+        //    if (keyData == (Keys.Control | Keys.I))
+        //    {
+        //        //ToggleItalic();
+        //    }
+        //    if (keyData == (Keys.Control | Keys.K))
+        //    {
+        //        ToggleMiddleline();
+        //    }
+        //    if (keyData == (Keys.Control | Keys.B))
+        //    {
+        //        ToggleBold();
+        //    }
+
+
+
+        //    return base.ProcessCmdKey(ref msg, keyData);
+        //}
+
+        //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
+
+
+
+
+
+    }
 }

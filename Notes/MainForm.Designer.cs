@@ -50,6 +50,7 @@
             this.load_all_notes_button = new System.Windows.Forms.Button();
             this.open_folder_button = new System.Windows.Forms.Button();
             this.close_all_forms_button = new System.Windows.Forms.Button();
+            this.delete_note_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -289,12 +290,23 @@
             this.close_all_forms_button.UseVisualStyleBackColor = true;
             this.close_all_forms_button.Click += new System.EventHandler(this.close_all_forms_button_Click);
             // 
+            // delete_note_button
+            // 
+            this.delete_note_button.Location = new System.Drawing.Point(106, -6);
+            this.delete_note_button.Name = "delete_note_button";
+            this.delete_note_button.Size = new System.Drawing.Size(75, 23);
+            this.delete_note_button.TabIndex = 22;
+            this.delete_note_button.Text = "X";
+            this.delete_note_button.UseVisualStyleBackColor = true;
+            this.delete_note_button.Click += new System.EventHandler(this.delete_note_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(355, 539);
+            this.Controls.Add(this.delete_note_button);
             this.Controls.Add(this.close_all_forms_button);
             this.Controls.Add(this.open_folder_button);
             this.Controls.Add(this.load_all_notes_button);
@@ -352,5 +364,6 @@
         private Button load_all_notes_button;
         private Button open_folder_button;
         private Button close_all_forms_button;
+        private Button delete_note_button;
     }
 }
