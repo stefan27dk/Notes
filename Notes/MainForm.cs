@@ -527,42 +527,17 @@ namespace Notes
 
         private void CloseAllForms()
         { 
-            if(Application.OpenForms.Count != 0)
-            {
                 Invoke(new Action(() => 
                 {
-                    Application.OpenForms[0].Close();
                     System.Windows.Forms.Application.Exit();
                     System.Environment.Exit(1);
 
                 }));
-                //this.Invoke((System.Action)(() => {
-                //    Application.OpenForms[0].Close();
-                //}));
-                CloseAllForms();
-            }
-               
         }
 
         private void close_all_forms_button_Click(object sender, EventArgs e)
-        {
-
-            CloseAllForms();
-
-            //var formsArray = Application.OpenForms;
-            //int length = formsArray.Count;
-            //for (int i = 0; i < length-1; i++)
-            //{
-
-            //    //Task.Run(() => { Application.OpenForms[i].Close(); });
-
-
-
-            //    this.Invoke((System.Action)(() => {
-            //        Application.OpenForms[i].Close();
-            //    }));
-
-            //}
+        { 
+            CloseAllForms(); 
         }
 
 
