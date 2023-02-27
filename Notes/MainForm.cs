@@ -185,7 +185,7 @@ namespace Notes
             //// set the selection to the text to be inserted
             //main_richTextBox.SelectedText = selectionToDublicate;
 
-
+            ToggleWordWrap();
 
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
 
@@ -201,13 +201,13 @@ namespace Notes
 
             //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
 
-            //main_richTextBox.SelectionLength = 0; // Deselect the text
 
 
             // set the selection to the text to be inserted
-            main_richTextBox.SelectedText = "\n" + currentlinetext; // Add New Line and insert the textx
+            main_richTextBox.SelectedText = currentlinetext + "\n" + currentlinetext; // Add New Line and insert the textx
 
-
+            main_richTextBox.SelectionLength = 0; // Deselect the text
+            ToggleWordWrap();
 
         }
 
@@ -271,13 +271,8 @@ namespace Notes
         {
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
 
-
-
             int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
             string currentlinetext = main_richTextBox.Lines[currentline];
-
-
-
 
             main_richTextBox.Select(firstcharindex, currentlinetext.Length);
 
@@ -456,7 +451,12 @@ namespace Notes
 
         private void wrapText_button_Click(object sender, EventArgs e)
         {
-            if(main_richTextBox.WordWrap == true)
+            ToggleWordWrap();
+        }
+
+        private void ToggleWordWrap()
+        {
+            if (main_richTextBox.WordWrap == true)
             {
                 main_richTextBox.WordWrap = false;
             }
@@ -465,8 +465,6 @@ namespace Notes
                 main_richTextBox.WordWrap = true;
             }
         }
-
-
 
 
         private void margin_button_Click(object sender, EventArgs e)
