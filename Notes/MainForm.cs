@@ -1,3 +1,8 @@
+using Microsoft.Win32;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -10,7 +15,8 @@ namespace Notes
             InitializeComponent();
         }
 
-         
+        string path = $"C:\\Notes\\";
+        MainForm newForm;
 
         private void AlignTextLeft()
         {
@@ -297,10 +303,44 @@ namespace Notes
           
         }
 
+
+
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
+            this.Size = new Size(360, 400);
+            this.Location = new Point((ScreenW) - (this.Width), 0);
+
+
+
 
         }
+
+
+        private void ReadAllNotes()
+        {
+            string[] filesArray = Directory.GetFiles(path);
+
+            foreach (var file in filesArray)
+            {
+                new Thread(() =>
+                {
+                    var newNoteForm = new MainForm();
+                    newNoteForm.main_richTextBox.LoadFile(file);
+                    newNoteForm.Show();
+                    Application.Run();
+                }).Start();
+            }
+             
+
+            
+            
+            //main_richTextBox.Text = File.ReadAllText(path); 
+        }
+
+
 
         private void endLine_button_Click(object sender, EventArgs e)
         {
@@ -320,15 +360,25 @@ namespace Notes
             }
         }
 
+
+
+
         private void margin_button_Click(object sender, EventArgs e)
         {
             main_richTextBox.RightMargin = main_richTextBox.Size.Width -35;
         }
  
+
+
+
+
         private void zoom_richtextbox_trackBar_ValueChanged(object sender, EventArgs e)
         {
             main_richTextBox.ZoomFactor = zoom_richtextbox_trackBar.Value;
         }
+
+
+
 
         private void form_opacity_trackBar_ValueChanged(object sender, EventArgs e)
         {
@@ -352,10 +402,124 @@ namespace Notes
             }
         }
 
+
+
+        private void CreatenewForm()
+        {
+            new Thread(() =>
+            {
+                newForm = new MainForm();
+                newForm.Show();
+                Application.Run();
+            }).Start();
+            
+        }
+
+
+
         private void new_note_button_Click(object sender, EventArgs e)
         {
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
+            CreatenewForm();
+        }
+
+
+
+
+        private void standart_view_button_Click(object sender, EventArgs e)
+        {
+            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
+
+            this.Size = new Size(360, 400);
+            this.Location = new Point((ScreenW) - (this.Width), 0);
+        }
+
+
+
+        private void SaveTextToFile()
+        {
+            string guiId = System.Guid.NewGuid().ToString();
+            string fileName;
+
+            if (main_richTextBox.Text.Length > 0) // If not empty
+            {
+              string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
+               
+
+                if(main_richTextBox.Text.Length >= 10) // If has 10 chars
+                {
+                    fileName = $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf"; 
+                }
+                else // If it has less than 10 chars
+                {
+                    fileName = $"Note - {txt.Substring(0, main_richTextBox.Text.Length) + "____" + guiId}.rtf"; 
+                }
+
+                Directory.CreateDirectory(path);
+                main_richTextBox.SaveFile(path + fileName, RichTextBoxStreamType.RichText);
+            }
+        }
+
+
+
+
+
+
+
+        private void save_button_Click(object sender, EventArgs e)
+        {
+            SaveTextToFile();
+        }
+
+        private void MainForm_Leave(object sender, EventArgs e)
+        {
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveTextToFile();
+        }
+
+
+
+
+        // The path to the key where Windows looks for startup applications
+        RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        bool runonStartup = true;
+
+
+
+
+
+        private void start_on_startup_button_Click(object sender, EventArgs e)
+        {
+            if (runonStartup == true)
+            {
+                // Add the value in the registry so that the application runs at startup
+                regKeyStartup.SetValue("Notes", Application.ExecutablePath);
+                runonStartup = false;
+            }
+            else
+            {
+                // Remove the value from the registry so that the application doesn't start
+                regKeyStartup.DeleteValue("Notes", false);
+                runonStartup = true;
+            }
+        }
+
+
+
+
+        private void load_all_notes_button_Click(object sender, EventArgs e)
+        {
+            ReadAllNotes();
+        }
+
+
+
+
+        private void open_folder_button_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", path);
         }
 
 
