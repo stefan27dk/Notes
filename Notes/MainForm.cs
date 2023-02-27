@@ -545,7 +545,7 @@ namespace Notes
         private void SaveTextToFile()
         { 
             string guiId = System.Guid.NewGuid().ToString();
-         
+         // Naming file code
             if(fileName == "")
             { 
                 if (main_richTextBox.Text.Length > 0) // If not empty
@@ -564,6 +564,8 @@ namespace Notes
                 }
             }
 
+
+            // Save Code
             Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
             main_richTextBox.SaveFile(fileName, RichTextBoxStreamType.RichText);
         }
@@ -585,7 +587,10 @@ namespace Notes
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(save)
+            string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
+            txt = Regex.Replace(txt, @"\t|\n|\r", "");
+
+            if (save && txt.Length > 0)
             {
                SaveTextToFile(); 
             }
