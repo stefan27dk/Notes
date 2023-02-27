@@ -71,7 +71,7 @@
             this.main_richTextBox.ShowSelectionMargin = true;
             this.main_richTextBox.Size = new System.Drawing.Size(359, 434);
             this.main_richTextBox.TabIndex = 0;
-            this.main_richTextBox.Text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+            this.main_richTextBox.Text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
             // 
             // standart_view_button

@@ -184,33 +184,31 @@ namespace Notes
 
             //// set the selection to the text to be inserted
             //main_richTextBox.SelectedText = selectionToDublicate;
-             
-           
-            ToggleWordWrap();
+
+
+            bool isWrap = main_richTextBox.WordWrap;
 
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-
-
            
+            main_richTextBox.WordWrap = false;
             int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
             string currentlinetext = main_richTextBox.Lines[currentline];
-
-
 
 
             main_richTextBox.Select(firstcharindex, currentlinetext.Length);
 
             //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
 
-
-
             // set the selection to the text to be inserted
             main_richTextBox.SelectedText = currentlinetext + "\n" + currentlinetext; // Add New Line and insert the textx
 
             main_richTextBox.SelectionLength = 0; // Deselect the text
-            ToggleWordWrap();
-            
-         
+
+            if(isWrap)
+            {
+                main_richTextBox.WordWrap = true;
+            }
+
         }
 
 
