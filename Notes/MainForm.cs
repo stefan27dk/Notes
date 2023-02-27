@@ -555,17 +555,17 @@ namespace Notes
                
                     if (txt.Length >= 10) // If it has at lerast 10 chars
                     {
-                        fileName = $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf"; 
+                        fileName = path + $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf"; 
                     }
                     else // If it has less than 10 chars
                     {
-                        fileName = $"Note - {txt.Substring(0, txt.Length) + "____" + guiId}.rtf"; 
+                        fileName = path + $"Note - {txt.Substring(0, txt.Length) + "____" + guiId}.rtf"; 
                     }
                 }
             }
 
-            Directory.CreateDirectory(path);
-            main_richTextBox.SaveFile(path + fileName, RichTextBoxStreamType.RichText);
+            Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
+            main_richTextBox.SaveFile(fileName, RichTextBoxStreamType.RichText);
         }
 
 
@@ -651,13 +651,22 @@ namespace Notes
             CloseAllForms(); 
         }
 
+
         private void delete_note_button_Click(object sender, EventArgs e)
         {
             save = false;
-            if (File.Exists(path + fileName))
+            if (File.Exists(fileName))
             {
-                File.Delete(path + fileName);
+                File.Delete(fileName);
+            }
+           
+            if(Application.OpenForms.Count > 1)
+            {
                 this.Close();
+            }
+            else
+            {
+                CloseAllForms();
             }
         }
 
