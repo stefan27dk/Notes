@@ -2,8 +2,10 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection.Emit;
+using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Notes
@@ -311,11 +313,7 @@ namespace Notes
         {
             int ScreenW = Screen.PrimaryScreen.Bounds.Width;
             this.Size = new Size(360, 400);
-            this.Location = new Point((ScreenW) - (this.Width), 0);
-
-
-
-
+            this.Location = new Point((ScreenW) - (this.Width), 0); 
         }
 
 
@@ -406,9 +404,12 @@ namespace Notes
 
         private void CreatenewForm()
         {
+            var x_loc = this.Location.X;
+            var y_loc = this.Location.Y;
             new Thread(() =>
             {
                 newForm = new MainForm();
+                newForm.Location = new Point(x_loc + newForm.Width, y_loc + +newForm.Height);
                 newForm.Show();
                 Application.Run();
             }).Start();
@@ -524,40 +525,82 @@ namespace Notes
 
 
 
+        private void CloseAllForms()
+        { 
+            if(Application.OpenForms.Count != 0)
+            {
+                Invoke(new Action(() => 
+                {
+                    Application.OpenForms[0].Close();
+                    System.Windows.Forms.Application.Exit();
+                    System.Environment.Exit(1);
 
+                }));
+                //this.Invoke((System.Action)(() => {
+                //    Application.OpenForms[0].Close();
+                //}));
+                CloseAllForms();
+            }
+               
+        }
 
-        ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{ 
+        private void close_all_forms_button_Click(object sender, EventArgs e)
+        {
 
-        //    if (keyData == (Keys.Control | Keys.U))
-        //    {
-        //        ToggleUnderline();
+            CloseAllForms();
 
-        //    }
-        //    if (keyData == (Keys.Control | Keys.I))
-        //    {
-        //        //ToggleItalic();
-        //    }
-        //    if (keyData == (Keys.Control | Keys.K))
-        //    {
-        //        ToggleMiddleline();
-        //    }
-        //    if (keyData == (Keys.Control | Keys.B))
-        //    {
-        //        ToggleBold();
-        //    }
+            //var formsArray = Application.OpenForms;
+            //int length = formsArray.Count;
+            //for (int i = 0; i < length-1; i++)
+            //{
 
-
-
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
-
-        //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
-
-
+            //    //Task.Run(() => { Application.OpenForms[i].Close(); });
 
 
 
-    }
+            //    this.Invoke((System.Action)(() => {
+            //        Application.OpenForms[i].Close();
+            //    }));
+
+            //}
+        }
+
+
+
+
+
+            ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------
+            //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+            //{ 
+
+            //    if (keyData == (Keys.Control | Keys.U))
+            //    {
+            //        ToggleUnderline();
+
+            //    }
+            //    if (keyData == (Keys.Control | Keys.I))
+            //    {
+            //        //ToggleItalic();
+            //    }
+            //    if (keyData == (Keys.Control | Keys.K))
+            //    {
+            //        ToggleMiddleline();
+            //    }
+            //    if (keyData == (Keys.Control | Keys.B))
+            //    {
+            //        ToggleBold();
+            //    }
+
+
+
+            //    return base.ProcessCmdKey(ref msg, keyData);
+            //}
+
+            //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
+
+
+
+
+
+        }
 }
