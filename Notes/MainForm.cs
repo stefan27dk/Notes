@@ -365,17 +365,15 @@ namespace Notes
 
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            UndoRedoModel undoRedoObj = new UndoRedoModel();
+            // Get Line 
+            int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+            int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+
 
             // Undo function ------------------------------------------------------------------
             if (e.KeyData == Keys.Back) // Add CTRL + X  "CUT when doing cut add to undo list"
             {
-
-                // Get Line 
-                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
-
-
-
                 //string currentlinetext = main_richTextBox.Lines[currentline];
 
                 // !!!! Add here if selection lngth > 1 dont select
@@ -383,10 +381,7 @@ namespace Notes
                 {
                     main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 1); // Select the char in front of the caret
                 }
-
-             
-
-                UndoRedoModel undoRedoObj = new UndoRedoModel();
+                
                 undoRedoObj.Line = currentLine;
                 undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                 undoRedoObj.Action = "Backspace";
@@ -397,37 +392,21 @@ namespace Notes
             }
             else if (e.KeyData == (Keys.Control | Keys.X))
             {
-                // Get Line 
-                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
-
-
 
                 //string currentlinetext = main_richTextBox.Lines[currentline];
-
              
                 if (main_richTextBox.SelectionLength != 0) // If there is selection
-                { 
-                    UndoRedoModel undoRedoObj = new UndoRedoModel();
+                {  
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "Cut";
                     undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
                     undoList.Push(undoRedoObj);
                 }
-
-                
-
-
             }
             else if (e.KeyData == Keys.Delete)
             {
-                // Get Line 
-                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
-
-
-
+               
                 //string currentlinetext = main_richTextBox.Lines[currentline];
 
                 // !!!! Add here if selection lngth > 1 dont select
@@ -436,9 +415,7 @@ namespace Notes
                     main_richTextBox.Select(main_richTextBox.SelectionStart, 1); // Select the char after the caret
                 }
 
-
-
-                UndoRedoModel undoRedoObj = new UndoRedoModel();
+ 
                 undoRedoObj.Line = currentLine;
                 undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                 undoRedoObj.Action = "Del";
@@ -448,11 +425,6 @@ namespace Notes
             }
             else if (e.KeyData == Keys.Enter)
             {
-                // Get Line 
-                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
-
-
                 //main_richTextBox.SelectionLength = main_richTextBox.Lines[currentLine].Length + 1;
                 //main_richTextBox.SelectedText = String.Empty;
 
@@ -462,7 +434,6 @@ namespace Notes
                 if (main_richTextBox.SelectionLength == 0) // If there is no selection
                 {
                     //main_richTextBox.Select(main_richTextBox.SelectionStart, 0); // Select the char after the caret
-                    UndoRedoModel undoRedoObj = new UndoRedoModel();
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "Enter";
@@ -472,7 +443,6 @@ namespace Notes
                 }
                 else
                 { 
-                    UndoRedoModel undoRedoObj = new UndoRedoModel();
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "EnterS";
@@ -480,9 +450,6 @@ namespace Notes
                     undoRedoObj.SelectionLength = 1;
                     undoList.Push(undoRedoObj);
                 }
-
-
-
                
             }
 
