@@ -433,7 +433,7 @@ namespace Notes
                 // !!!! Add here if selection lngth > 1 dont select
                 if (main_richTextBox.SelectionLength == 0) // If there is no selection
                 {
-                    main_richTextBox.Select(main_richTextBox.SelectionStart +1, 1); // Select the char after the caret
+                    main_richTextBox.Select(main_richTextBox.SelectionStart, 1); // Select the char after the caret
                 }
 
 
@@ -442,7 +442,7 @@ namespace Notes
                 undoRedoObj.Line = currentLine;
                 undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                 undoRedoObj.Action = "Del";
-                undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
+                undoRedoObj.DeletedTxt = main_richTextBox.SelectedText; 
 
                 undoList.Push(undoRedoObj);
             }
@@ -643,14 +643,21 @@ namespace Notes
                 //    main_richTextBox.Select(undoRedoObj.CharIndex, 0);
                 //}
 
-                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
-                main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+                
+                
+                  main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
+                  main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+
+
+                if (undoRedoObj.Action == "Del")
+                {
+                    main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
+                }
             }
 
         }
 
-
-
+ 
 
 
 
