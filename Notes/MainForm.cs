@@ -471,14 +471,13 @@ namespace Notes
                     undoList.Push(undoRedoObj);
                 }
                 else
-                {
-                    main_richTextBox.Select(main_richTextBox.SelectionStart-1, 1); // Select the char after the caret
+                { 
                     UndoRedoModel undoRedoObj = new UndoRedoModel();
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
-                    undoRedoObj.Action = "Enter";
+                    undoRedoObj.Action = "EnterS";
                     undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
-
+                    undoRedoObj.SelectionLength = 1;
                     undoList.Push(undoRedoObj);
                 }
 
