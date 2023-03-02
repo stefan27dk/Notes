@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using Notes.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection.Emit;
@@ -16,6 +17,10 @@ namespace Notes
         {
             InitializeComponent();
         }
+
+       
+        Stack<object> undoList = new Stack<object>();
+        Stack<object> redoList = new Stack<object>();
 
         string path = $"C:\\Notes\\";
         string fileName = "";
@@ -185,12 +190,14 @@ namespace Notes
             //// set the selection to the text to be inserted
             //main_richTextBox.SelectedText = selectionToDublicate;
 
-
+ 
             bool isWrap = main_richTextBox.WordWrap;
 
             int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
            
             main_richTextBox.WordWrap = false;
+          
+
             int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
             string currentlinetext = main_richTextBox.Lines[currentline];
 
@@ -203,10 +210,12 @@ namespace Notes
             main_richTextBox.SelectedText = currentlinetext + "\n" + currentlinetext; // Add New Line and insert the textx
 
             main_richTextBox.SelectionLength = 0; // Deselect the text
+ 
 
-            if(isWrap)
+            if (isWrap)
             {
                 main_richTextBox.WordWrap = true;
+                
             }
 
         }
@@ -329,6 +338,65 @@ namespace Notes
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
 
+            // Undo function ------------------------------------------------------------------
+            if (e.KeyData == Keys.Back) // Add CTRL + X  "CUT when doing cut add to undo list"
+            {
+               
+                // Get Line 
+                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+
+             
+
+                //string currentlinetext = main_richTextBox.Lines[currentline];
+
+                // !!!! Add here if selection lngth > 1 dont select
+                if(main_richTextBox.SelectionLength == 0) // If there is no selection
+                {
+                  main_richTextBox.Select(main_richTextBox.SelectionStart-1, 1); // Select the char in front of the caret
+                }
+                
+                string delTxt = main_richTextBox.SelectedText;
+
+                UndoRedoModel undoRedoObj = new UndoRedoModel();
+                undoRedoObj.Line = currentLine;
+                undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
+                undoRedoObj.Action = "Backspace";
+                undoRedoObj.DeletedTxt = delTxt;
+
+                undoList.Push(undoRedoObj);
+ 
+            }
+            else if (e.KeyData == Keys.Delete)
+            {
+                //// Get Line 
+                //int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+                //int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+
+                //// Get current Char index
+                //int currentCharIndex = main_richTextBox.SelectionStart; // The carret index
+
+                ////string currentlinetext = main_richTextBox.Lines[currentline];
+
+                //main_richTextBox.Select(currentCharIndex, 1);
+                //string delChar = main_richTextBox.SelectedText;
+
+                //undoRedoObj.Line = currentLine;
+                //undoRedoObj.CharIndex = currentCharIndex;
+                //undoRedoObj.Action = "Backspace";
+                //undoRedoObj.DeletedChar = delChar;
+
+                //undoList.Push(undoRedoObj);
+            }
+
+
+
+
+
+
+
+
+            // Key Shortcuts --------------------------------------------------------
             if (e.KeyData == (Keys.Control | Keys.I))
             {
                 e.SuppressKeyPress = true;
@@ -403,9 +471,84 @@ namespace Notes
             {
                 e.SuppressKeyPress = true;
                 EnterNewLineBeforeAndMoveCursor();
+            }  
+            else if (e.KeyData == (Keys.Control | Keys.Z))
+            {
+                e.SuppressKeyPress = true;
+                UndoTxt();
             }
           
         }
+
+
+
+
+
+
+
+
+
+
+
+        private void UndoTxt()
+        {
+            //string selectionToDublicate = main_richTextBox.SelectedText;
+            //// keep all values that will change
+            //int oldStart = main_richTextBox.SelectionStart;
+            //int oldLength = main_richTextBox.SelectionLength;
+
+            //// 
+            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength;
+            //main_richTextBox.SelectionLength = 0;
+
+
+            //// set the selection to the text to be inserted
+            //main_richTextBox.SelectedText = selectionToDublicate;
+
+
+
+
+            //int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+
+            //main_richTextBox.WordWrap = false;
+            //int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
+            //string currentlinetext = main_richTextBox.Lines[currentline];
+
+
+            //main_richTextBox.Select(firstcharindex, currentlinetext.Length);
+
+            ////main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
+
+            //// set the selection to the text to be inserted
+            //main_richTextBox.SelectedText = currentlinetext + "\n" + currentlinetext; // Add New Line and insert the textx
+
+            main_richTextBox.SelectionLength = 0; // Deselect the text
+
+            if (undoList.Count > 0)
+            {
+                UndoRedoModel undoRedoObj = (UndoRedoModel)undoList.Pop(); // Get the UndoObj from the undoList
+
+
+                main_richTextBox.Select(undoRedoObj.CharIndex,0);
+                main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+            }
+
+        }
+
+
+
+
+
+
+
+
+        private void undo_button_Click(object sender, EventArgs e)
+        {
+            UndoTxt();
+        }
+
+
+
 
 
 
@@ -679,6 +822,10 @@ namespace Notes
 
 
 
+
+
+
+    
 
 
         ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------

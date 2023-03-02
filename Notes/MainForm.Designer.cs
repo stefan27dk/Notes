@@ -51,6 +51,7 @@
             this.open_folder_button = new System.Windows.Forms.Button();
             this.close_all_forms_button = new System.Windows.Forms.Button();
             this.delete_note_button = new System.Windows.Forms.Button();
+            this.undo_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +65,7 @@
             this.main_richTextBox.EnableAutoDragDrop = true;
             this.main_richTextBox.HideSelection = false;
             this.main_richTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.main_richTextBox.Location = new System.Drawing.Point(-4, 75);
+            this.main_richTextBox.Location = new System.Drawing.Point(3, 69);
             this.main_richTextBox.MaxLength = 999999999;
             this.main_richTextBox.Name = "main_richTextBox";
             this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
@@ -300,12 +301,23 @@
             this.delete_note_button.UseVisualStyleBackColor = true;
             this.delete_note_button.Click += new System.EventHandler(this.delete_note_button_Click);
             // 
+            // undo_button
+            // 
+            this.undo_button.Location = new System.Drawing.Point(42, -2);
+            this.undo_button.Name = "undo_button";
+            this.undo_button.Size = new System.Drawing.Size(75, 23);
+            this.undo_button.TabIndex = 23;
+            this.undo_button.Text = "Undo";
+            this.undo_button.UseVisualStyleBackColor = true;
+            this.undo_button.Click += new System.EventHandler(this.undo_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(355, 539);
+            this.Controls.Add(this.undo_button);
             this.Controls.Add(this.delete_note_button);
             this.Controls.Add(this.close_all_forms_button);
             this.Controls.Add(this.open_folder_button);
@@ -365,5 +377,6 @@
         private Button open_folder_button;
         private Button close_all_forms_button;
         private Button delete_note_button;
+        private Button undo_button;
     }
 }
