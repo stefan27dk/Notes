@@ -336,8 +336,7 @@ namespace Notes
 
         private void DeleteCurrentLine()
         {
-            if(main_richTextBox.SelectionLength == 0)
-            {
+           
                 //// Get Line 
                 //int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
                 //int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
@@ -347,8 +346,7 @@ namespace Notes
                 //this.main_richTextBox.SelectedText = String.Empty;
 
 
-
-
+ 
 
                 // Get Line 
                 int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
@@ -357,11 +355,7 @@ namespace Notes
                 main_richTextBox.SelectionStart = firstCharIndex;
                 main_richTextBox.SelectionLength = this.main_richTextBox.Lines[currentLine].Length + 1;
                 this.main_richTextBox.SelectedText = String.Empty;
-
-
-
-
-            }
+             
         }
 
 
@@ -464,15 +458,16 @@ namespace Notes
 
                 //string currentlinetext = main_richTextBox.Lines[currentline];
 
-                // !!!! Add here if selection lngth > 1 dont select
+         
                 if (main_richTextBox.SelectionLength == 0) // If there is no selection
                 {
-                    main_richTextBox.Select(main_richTextBox.SelectionStart-1, 1); // Select the char after the caret
+                    //main_richTextBox.Select(main_richTextBox.SelectionStart, 0); // Select the char after the caret
                     UndoRedoModel undoRedoObj = new UndoRedoModel();
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "Enter";
                     undoRedoObj.DeletedTxt = ""; 
+                    undoRedoObj.SelectionLength = 1; 
                     undoList.Push(undoRedoObj);
                 }
                 else
@@ -583,8 +578,11 @@ namespace Notes
             }
             else if (e.KeyData == (Keys.Control | Keys.X))
             {
-                e.SuppressKeyPress = true;
-                DeleteCurrentLine();
+                if (main_richTextBox.SelectionLength == 0)
+                {
+                    e.SuppressKeyPress = true;
+                    DeleteCurrentLine();
+                }
             }
           
         }
@@ -637,18 +635,16 @@ namespace Notes
             {
                 UndoRedoModel undoRedoObj = (UndoRedoModel)undoList.Pop(); // Get the UndoObj from the undoList
 
-                if(undoRedoObj.Action == "Enter")
-                {
-                    // Get Line 
-                    int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                    int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+                //if(undoRedoObj.Action == "Enter")
+                //{
+                //    main_richTextBox.Select(undoRedoObj.CharIndex,1);
+                //}
+                //else
+                //{
+                //    main_richTextBox.Select(undoRedoObj.CharIndex, 0);
+                //}
 
-                    main_richTextBox.SelectionStart = undoRedoObj.CharIndex;
-                    main_richTextBox.SelectionLength = main_richTextBox.Lines[currentLine].Length;
-                    main_richTextBox.SelectedText = String.Empty;
-                }
-
-                main_richTextBox.Select(undoRedoObj.CharIndex,0);
+                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
                 main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
             }
 

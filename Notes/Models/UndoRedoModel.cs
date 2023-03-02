@@ -12,5 +12,6 @@ namespace Notes.Models
         public int CharIndex { get; set; }
         public string Action { get; set; } = "";
         public string DeletedTxt { get; set; } = ""; 
+        public int SelectionLength { get; set; } = 0; 
     }
 }
