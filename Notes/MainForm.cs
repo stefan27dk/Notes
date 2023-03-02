@@ -19,8 +19,9 @@ namespace Notes
         }
 
        
-        Stack<object> undoList = new Stack<object>();
-        Stack<object> redoList = new Stack<object>();
+        Stack<UndoRedoModel> undoList = new Stack<UndoRedoModel>();
+        Stack<UndoRedoModel> redoList = new Stack<UndoRedoModel>();
+        Stack<UndoTypeModel> undoTypeList = new Stack<UndoTypeModel>();
 
         string path = $"C:\\Notes\\";
         string fileName = "";
@@ -359,12 +360,14 @@ namespace Notes
         }
 
 
-
+   
 
 
 
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+
+            
             UndoRedoModel undoRedoObj = new UndoRedoModel();
             // Get Line 
             int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
@@ -550,6 +553,23 @@ namespace Notes
                     DeleteCurrentLine();
                 }
             }
+            else if(char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode)))
+            {
+                // UndoTyping code -----------------------------------------------------------------
+                UndoTypeModel undoTypeObj = new UndoTypeModel();
+                undoTypeObj.CharIndex = main_richTextBox.SelectionStart;
+
+                if (e.KeyData == (Keys.Control | Keys.V))
+                {
+                    if (Clipboard.ContainsText(TextDataFormat.Text))
+                    {
+                        undoTypeObj.Length = Clipboard.GetText(TextDataFormat.Text).Length;
+                        undoTypeObj.Action = "Paste";
+                    }
+                }
+
+                undoTypeList.Push(undoTypeObj);
+            }
           
         }
 
@@ -610,8 +630,9 @@ namespace Notes
                 //    main_richTextBox.Select(undoRedoObj.CharIndex, 0);
                 //}
 
-                
-                
+               
+
+
                   main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
                   main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
 
@@ -620,6 +641,14 @@ namespace Notes
                 {
                     main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
                 }
+            }
+            else if(undoTypeList.Count > 0) // Undo after typing "Remove the last typed char on Undo when undo list is empty"
+            {
+                UndoTypeModel undoType = undoTypeList.Pop(); // !!! Here add to Redo !! do it later
+
+                //main_richTextBox.Selection
+                main_richTextBox.Select(undoType.CharIndex, undoType.Length);
+                main_richTextBox.SelectedText = "";
             }
 
         }
