@@ -341,52 +341,80 @@ namespace Notes
             // Undo function ------------------------------------------------------------------
             if (e.KeyData == Keys.Back) // Add CTRL + X  "CUT when doing cut add to undo list"
             {
-               
+
                 // Get Line 
                 int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
                 int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
 
-             
+
 
                 //string currentlinetext = main_richTextBox.Lines[currentline];
 
                 // !!!! Add here if selection lngth > 1 dont select
-                if(main_richTextBox.SelectionLength == 0) // If there is no selection
+                if (main_richTextBox.SelectionLength == 0) // If there is no selection
                 {
-                  main_richTextBox.Select(main_richTextBox.SelectionStart-1, 1); // Select the char in front of the caret
+                    main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 1); // Select the char in front of the caret
                 }
-                
-                string delTxt = main_richTextBox.SelectedText;
+
+             
 
                 UndoRedoModel undoRedoObj = new UndoRedoModel();
                 undoRedoObj.Line = currentLine;
                 undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                 undoRedoObj.Action = "Backspace";
-                undoRedoObj.DeletedTxt = delTxt;
+                undoRedoObj.DeletedTxt = main_richTextBox.SelectedText; 
 
                 undoList.Push(undoRedoObj);
- 
+
+            }
+            else if (e.KeyData == (Keys.Control | Keys.X))
+            {
+                // Get Line 
+                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+
+
+
+                //string currentlinetext = main_richTextBox.Lines[currentline];
+
+             
+                if (main_richTextBox.SelectionLength != 0) // If there is selection
+                { 
+                    UndoRedoModel undoRedoObj = new UndoRedoModel();
+                    undoRedoObj.Line = currentLine;
+                    undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
+                    undoRedoObj.Action = "Cut";
+                    undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
+                    undoList.Push(undoRedoObj);
+                }
+
+               
             }
             else if (e.KeyData == Keys.Delete)
             {
-                //// Get Line 
-                //int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-                //int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
+                // Get Line 
+                int firstCharIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+                int currentLine = main_richTextBox.GetLineFromCharIndex(firstCharIndex); // The Line
 
-                //// Get current Char index
-                //int currentCharIndex = main_richTextBox.SelectionStart; // The carret index
 
-                ////string currentlinetext = main_richTextBox.Lines[currentline];
 
-                //main_richTextBox.Select(currentCharIndex, 1);
-                //string delChar = main_richTextBox.SelectedText;
+                //string currentlinetext = main_richTextBox.Lines[currentline];
 
-                //undoRedoObj.Line = currentLine;
-                //undoRedoObj.CharIndex = currentCharIndex;
-                //undoRedoObj.Action = "Backspace";
-                //undoRedoObj.DeletedChar = delChar;
+                // !!!! Add here if selection lngth > 1 dont select
+                if (main_richTextBox.SelectionLength == 0) // If there is no selection
+                {
+                    main_richTextBox.Select(main_richTextBox.SelectionStart +1, 1); // Select the char after the caret
+                }
 
-                //undoList.Push(undoRedoObj);
+
+
+                UndoRedoModel undoRedoObj = new UndoRedoModel();
+                undoRedoObj.Line = currentLine;
+                undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
+                undoRedoObj.Action = "Backspace";
+                undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
+
+                undoList.Push(undoRedoObj);
             }
 
 
