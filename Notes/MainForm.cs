@@ -448,7 +448,7 @@ namespace Notes
                 { 
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
-                    undoRedoObj.Action = "EnterS";
+                    undoRedoObj.Action = "EnterSelection";
                     undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
                     undoRedoObj.SelectionLength = 1;
                     undoList.Push(undoRedoObj);
@@ -458,9 +458,7 @@ namespace Notes
 
 
 
-
-
-
+          
 
 
 
@@ -555,11 +553,25 @@ namespace Notes
             }
             else if(char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode)))
             {
+                // Undo add to list if there is selected text and any key letter or number is pressed and has replaced the text with the pressed letter
+                if (main_richTextBox.SelectedText.Length > 0)
+                {
+                    undoRedoObj.Line = currentLine;
+                    undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
+                    undoRedoObj.Action = "Replace";
+                    undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
+                    undoRedoObj.SelectionLength = 1;
+                    undoList.Push(undoRedoObj);
+                }
+
+
+
+
                 // UndoTyping code -----------------------------------------------------------------
                 UndoTypeModel undoTypeObj = new UndoTypeModel();
                 undoTypeObj.CharIndex = main_richTextBox.SelectionStart;
 
-                if (e.KeyData == (Keys.Control | Keys.V))
+                if (e.KeyData == (Keys.Control | Keys.V)) // If Paste
                 {
                     if (Clipboard.ContainsText(TextDataFormat.Text))
                     {
