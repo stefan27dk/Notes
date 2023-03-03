@@ -551,7 +551,7 @@ namespace Notes
                     DeleteCurrentLine();
                 }
             }
-            else if(char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode)))
+            else if((char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode))) || e.KeyData == Keys.Space)
             {
                 // Undo add to list if there is selected text and any key letter or number is pressed and has replaced the text with the pressed letter
                 if (main_richTextBox.SelectedText.Length > 0)
