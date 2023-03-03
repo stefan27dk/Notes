@@ -568,19 +568,36 @@ namespace Notes
 
 
                 // UndoTyping code -----------------------------------------------------------------
-                UndoTypeModel undoTypeObj = new UndoTypeModel();
-                undoTypeObj.CharIndex = main_richTextBox.SelectionStart;
+                UndoRedoModel undoRedoObjTyping = new UndoRedoModel();
+                undoRedoObjTyping.CharIndex = main_richTextBox.SelectionStart;
+                undoRedoObjTyping.SelectionLength= 1;
+
 
                 if (e.KeyData == (Keys.Control | Keys.V)) // If Paste
                 {
                     if (Clipboard.ContainsText(TextDataFormat.Text))
                     {
-                        undoTypeObj.Length = Clipboard.GetText(TextDataFormat.Text).Length;
-                        undoTypeObj.Action = "Paste";
+                        undoRedoObjTyping.SelectionLength = Clipboard.GetText(TextDataFormat.Text).Length;
+                        undoRedoObjTyping.Action = "Paste";
                     }
                 }
 
-                undoTypeList.Push(undoTypeObj);
+                undoList.Push(undoRedoObjTyping);
+
+                //// UndoTyping code -----------------------------------------------------------------
+                //UndoTypeModel undoTypeObj = new UndoTypeModel();
+                //undoTypeObj.CharIndex = main_richTextBox.SelectionStart;
+
+                //if (e.KeyData == (Keys.Control | Keys.V)) // If Paste
+                //{
+                //    if (Clipboard.ContainsText(TextDataFormat.Text))
+                //    {
+                //        undoTypeObj.Length = Clipboard.GetText(TextDataFormat.Text).Length;
+                //        undoTypeObj.Action = "Paste";
+                //    }
+                //}
+
+                //undoTypeList.Push(undoTypeObj);
             }
           
         }
@@ -597,54 +614,13 @@ namespace Notes
 
         private void UndoTxt()
         {
-            //string selectionToDublicate = main_richTextBox.SelectedText;
-            //// keep all values that will change
-            //int oldStart = main_richTextBox.SelectionStart;
-            //int oldLength = main_richTextBox.SelectionLength;
-
-            //// 
-            //main_richTextBox.SelectionStart = main_richTextBox.SelectionLength;
-            //main_richTextBox.SelectionLength = 0;
-
-
-            //// set the selection to the text to be inserted
-            //main_richTextBox.SelectedText = selectionToDublicate;
-
-
-
-
-            //int firstcharindex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
-
-            //main_richTextBox.WordWrap = false;
-            //int currentline = main_richTextBox.GetLineFromCharIndex(firstcharindex);
-            //string currentlinetext = main_richTextBox.Lines[currentline];
-
-
-            //main_richTextBox.Select(firstcharindex, currentlinetext.Length);
-
-            ////main_richTextBox.SelectionStart = main_richTextBox.SelectionLength; // Move the curser after the selected text
-
-            //// set the selection to the text to be inserted
-            //main_richTextBox.SelectedText = currentlinetext + "\n" + currentlinetext; // Add New Line and insert the textx
-
+            
             main_richTextBox.SelectionLength = 0; // Deselect the text
 
             if (undoList.Count > 0)
             {
-                UndoRedoModel undoRedoObj = (UndoRedoModel)undoList.Pop(); // Get the UndoObj from the undoList
-
-                //if(undoRedoObj.Action == "Enter")
-                //{
-                //    main_richTextBox.Select(undoRedoObj.CharIndex,1);
-                //}
-                //else
-                //{
-                //    main_richTextBox.Select(undoRedoObj.CharIndex, 0);
-                //}
-
-               
-
-
+                UndoRedoModel undoRedoObj = undoList.Pop(); // Get the UndoObj from the undoList
+                             
                   main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
                   main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
 
@@ -654,14 +630,14 @@ namespace Notes
                     main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
                 }
             }
-            else if(undoTypeList.Count > 0) // Undo after typing "Remove the last typed char on Undo when undo list is empty"
-            {
-                UndoTypeModel undoType = undoTypeList.Pop(); // !!! Here add to Redo !! do it later
+            //else if(undoTypeList.Count > 0) // Undo after typing "Remove the last typed char on Undo when undo list is empty"
+            //{
+            //    UndoTypeModel undoType = undoTypeList.Pop(); // !!! Here add to Redo !! do it later
 
-                //main_richTextBox.Selection
-                main_richTextBox.Select(undoType.CharIndex, undoType.Length);
-                main_richTextBox.SelectedText = "";
-            }
+            //    //main_richTextBox.Selection
+            //    main_richTextBox.Select(undoType.CharIndex, undoType.Length);
+            //    main_richTextBox.SelectedText = "";
+            //}
 
         }
 
