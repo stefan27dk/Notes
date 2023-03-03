@@ -560,7 +560,7 @@ namespace Notes
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "Replace";
                     undoRedoObj.DeletedTxt = main_richTextBox.SelectedText;
-                    undoRedoObj.SelectionLength = 1;
+                    undoRedoObj.SelectionLength = 0;
                     undoList.Push(undoRedoObj);
                 }
 
@@ -570,7 +570,7 @@ namespace Notes
                 // UndoTyping code -----------------------------------------------------------------
                 UndoRedoModel undoRedoObjTyping = new UndoRedoModel();
                 undoRedoObjTyping.CharIndex = main_richTextBox.SelectionStart;
-                undoRedoObjTyping.SelectionLength= 1;
+                undoRedoObjTyping.SelectionLength = 1;
 
 
                 if (e.KeyData == (Keys.Control | Keys.V)) // If Paste
