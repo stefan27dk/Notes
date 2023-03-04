@@ -543,6 +543,11 @@ namespace Notes
                 e.SuppressKeyPress = true;
                 UndoTxt();
             }
+            else if (e.KeyData == (Keys.Control | Keys.Y))
+            {
+                e.SuppressKeyPress = true;
+                RedoTxt();
+            }
             else if (e.KeyData == (Keys.Control | Keys.X))
             {
                 if (main_richTextBox.SelectionLength == 0)
@@ -571,18 +576,23 @@ namespace Notes
                 UndoRedoModel undoRedoObjTyping = new UndoRedoModel();
                 undoRedoObjTyping.CharIndex = main_richTextBox.SelectionStart;
                 undoRedoObjTyping.SelectionLength = 1;
+                undoRedoObjTyping.DeletedTxt = Convert.ToChar(e.KeyCode).ToString();
+                undoRedoObjTyping.Type = "UndoType";
+
 
 
                 if (e.KeyData == (Keys.Control | Keys.V)) // If Paste
                 {
                     if (Clipboard.ContainsText(TextDataFormat.Text))
                     {
-                        undoRedoObjTyping.SelectionLength = Clipboard.GetText(TextDataFormat.Text).Length;
+                        string clipBoradTxt = Clipboard.GetText(TextDataFormat.Text);
+                        undoRedoObjTyping.SelectionLength = clipBoradTxt.Length;
+                        undoRedoObjTyping.DeletedTxt = clipBoradTxt;
                         undoRedoObjTyping.Action = "Paste";
                     }
                 }
 
-                undoList.Push(undoRedoObjTyping);
+                  undoList.Push(undoRedoObjTyping);
 
                 //// UndoTyping code -----------------------------------------------------------------
                 //UndoTypeModel undoTypeObj = new UndoTypeModel();
@@ -620,9 +630,27 @@ namespace Notes
             if (undoList.Count > 0)
             {
                 UndoRedoModel undoRedoObj = undoList.Pop(); // Get the UndoObj from the undoList
-                             
-                  main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
-                  main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+
+                //// For Redo
+                //if (undoRedoObj.Action != "Replace") // For the Redo if there was pasted txt and wa replace - in order not to loose the pasted text when redo is used
+                //{
+                //    redoList.Push(undoRedoObj); // Add to Redo List
+                //}
+                redoList.Push(undoRedoObj); // Add to Redo List
+
+                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
+
+
+                if(undoRedoObj.Type == "UndoType")
+                {
+                  main_richTextBox.SelectedText = "";
+                }
+                else
+                {
+                    main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+                }
+
+
 
 
                 if (undoRedoObj.Action == "Del")
@@ -644,6 +672,44 @@ namespace Notes
  
 
 
+
+
+        private void  RedoTxt()
+        {
+            if(redoList.Count > 0)
+            { 
+                UndoRedoModel undoRedoObj = redoList.Pop();
+                undoList.Push(undoRedoObj);
+
+
+                if (undoRedoObj.Action == "Replace")
+                {
+                    int replacedTxtLength = undoRedoObj.DeletedTxt.Length;
+                    undoRedoObj = redoList.Pop();
+                    undoList.Push(undoRedoObj);
+                    undoRedoObj.SelectionLength = replacedTxtLength;
+                }
+             
+
+                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
+                
+
+
+                //if (undoRedoObj.Action == "Paste")
+                //{
+                //    main_richTextBox.SelectedText = "";
+                //}
+                main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
+
+
+
+
+                if (undoRedoObj.Action == "Del")
+                {
+                    main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
+                }
+            }
+        }
 
 
 

@@ -13,5 +13,6 @@ namespace Notes.Models
         public string Action { get; set; } = "";
         public string DeletedTxt { get; set; } = ""; 
         public int SelectionLength { get; set; } = 0; 
+        public string Type { get; set; } = ""; 
     }
 }
