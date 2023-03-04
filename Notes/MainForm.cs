@@ -679,17 +679,34 @@ namespace Notes
             if(redoList.Count > 0)
             { 
                 UndoRedoModel undoRedoObj = redoList.Pop();
-                undoList.Push(undoRedoObj);
+
+                //undoList.Push(undoRedoObj);
 
 
                 if (undoRedoObj.Action == "Replace")
                 {
+                    UndoRedoModel undoObjRewrite = new UndoRedoModel();
+                    undoObjRewrite.Action = undoRedoObj.Action;
+                    undoObjRewrite.DeletedTxt = undoRedoObj.DeletedTxt; 
+                    undoObjRewrite.Line = undoRedoObj.Line;
+                    undoObjRewrite.CharIndex = undoRedoObj.CharIndex;
+                    undoObjRewrite.Type = undoRedoObj.Type;
+
+
+                    // Replace the "aaa" length with the "45 length"
                     int replacedTxtLength = undoRedoObj.DeletedTxt.Length;
                     undoRedoObj = redoList.Pop();
-                    undoList.Push(undoRedoObj);
+                    //undoList.Push(undoRedoObj);
                     undoRedoObj.SelectionLength = replacedTxtLength;
+                     
+                    undoObjRewrite.SelectionLength = undoRedoObj.DeletedTxt.Length;
+                    undoList.Push(undoObjRewrite);
                 }
-             
+                else
+                {
+                    undoList.Push(undoRedoObj);
+                }
+                // Take the 45 and replace its length with the "aaa"
 
                 main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
                 
