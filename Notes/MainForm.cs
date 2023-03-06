@@ -572,7 +572,7 @@ namespace Notes
                     DeleteCurrentLine();
                 }
             }
-            else if(char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode)) || e.KeyData == Keys.Space)
+            else if(!char.IsControl(Convert.ToChar(e.KeyCode)))
             {
                 // Undo add to list if there is selected text and any key letter or number is pressed and has replaced the text with the pressed letter
                 if (main_richTextBox.SelectedText.Length > 0)
@@ -1027,12 +1027,27 @@ namespace Notes
             }
         }
 
+        private void main_richTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ShowCharIndexAndLine();
+        }
+
+
+        private void ShowCharIndexAndLine()
+        {
+            int charIndex = main_richTextBox.GetFirstCharIndexOfCurrentLine();
+            char_index_label.Text = "Char Index:" + charIndex;
+            line_label.Text = "Line:" + main_richTextBox.GetLineFromCharIndex(charIndex).ToString();
+        }
+
+        private void main_richTextBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            ShowCharIndexAndLine();
+        }
 
 
 
 
-
-    
 
 
         ////Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::START::------------------------------------------------------------------------------------

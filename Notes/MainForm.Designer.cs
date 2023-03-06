@@ -52,6 +52,8 @@
             this.close_all_forms_button = new System.Windows.Forms.Button();
             this.delete_note_button = new System.Windows.Forms.Button();
             this.undo_button = new System.Windows.Forms.Button();
+            this.char_index_label = new System.Windows.Forms.Label();
+            this.line_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -70,10 +72,12 @@
             this.main_richTextBox.Name = "main_richTextBox";
             this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.main_richTextBox.ShowSelectionMargin = true;
-            this.main_richTextBox.Size = new System.Drawing.Size(359, 434);
+            this.main_richTextBox.Size = new System.Drawing.Size(359, 402);
             this.main_richTextBox.TabIndex = 0;
             this.main_richTextBox.Text = "";
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
+            this.main_richTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.main_richTextBox_KeyPress);
+            this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp);
             // 
             // standart_view_button
             // 
@@ -220,7 +224,7 @@
             // zoom_richtextbox_trackBar
             // 
             this.zoom_richtextbox_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(242, 509);
+            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(242, 517);
             this.zoom_richtextbox_trackBar.Minimum = 1;
             this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
             this.zoom_richtextbox_trackBar.Size = new System.Drawing.Size(104, 45);
@@ -231,7 +235,7 @@
             // form_opacity_trackBar
             // 
             this.form_opacity_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.form_opacity_trackBar.Location = new System.Drawing.Point(-4, 512);
+            this.form_opacity_trackBar.Location = new System.Drawing.Point(-4, 520);
             this.form_opacity_trackBar.Maximum = 100;
             this.form_opacity_trackBar.Minimum = 50;
             this.form_opacity_trackBar.Name = "form_opacity_trackBar";
@@ -311,12 +315,34 @@
             this.undo_button.UseVisualStyleBackColor = true;
             this.undo_button.Click += new System.EventHandler(this.undo_button_Click);
             // 
+            // char_index_label
+            // 
+            this.char_index_label.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.char_index_label.AutoSize = true;
+            this.char_index_label.Location = new System.Drawing.Point(133, 523);
+            this.char_index_label.Name = "char_index_label";
+            this.char_index_label.Size = new System.Drawing.Size(67, 15);
+            this.char_index_label.TabIndex = 24;
+            this.char_index_label.Text = "Char Index:";
+            // 
+            // line_label
+            // 
+            this.line_label.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.line_label.AutoSize = true;
+            this.line_label.Location = new System.Drawing.Point(133, 496);
+            this.line_label.Name = "line_label";
+            this.line_label.Size = new System.Drawing.Size(32, 15);
+            this.line_label.TabIndex = 25;
+            this.line_label.Text = "Line:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(355, 539);
+            this.ClientSize = new System.Drawing.Size(355, 547);
+            this.Controls.Add(this.line_label);
+            this.Controls.Add(this.char_index_label);
             this.Controls.Add(this.undo_button);
             this.Controls.Add(this.delete_note_button);
             this.Controls.Add(this.close_all_forms_button);
@@ -378,5 +404,7 @@
         private Button close_all_forms_button;
         private Button delete_note_button;
         private Button undo_button;
+        private Label char_index_label;
+        private Label line_label;
     }
 }
