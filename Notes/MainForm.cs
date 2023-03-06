@@ -21,12 +21,28 @@ namespace Notes
        
         Stack<UndoRedoModel> undoList = new Stack<UndoRedoModel>();
         Stack<UndoRedoModel> redoList = new Stack<UndoRedoModel>();
-        Stack<UndoTypeModel> undoTypeList = new Stack<UndoTypeModel>();
+      
 
         string path = $"C:\\Notes\\";
         string fileName = "";
         bool save = true;
         MainForm newForm;
+
+
+        // Main Form Load -----------------------------------------------------------------------------------------------------------------
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
+            this.Size = new Size(360, 400);
+            this.Location = new Point((ScreenW) - (this.Width), 0);
+            this.Text = fileName;
+            main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+        }
+
+
+
+
+
 
         private void AlignTextLeft()
         {
@@ -380,7 +396,7 @@ namespace Notes
                 //string currentlinetext = main_richTextBox.Lines[currentline];
 
                 // !!!! Add here if selection lngth > 1 dont select
-                if (main_richTextBox.SelectionLength == 0) // If there is no selection
+                if (main_richTextBox.SelectionLength == 0 && main_richTextBox.Text.Length > 0) // If there is no selection
                 {
                     main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 1); // Select the char in front of the caret
                 }
@@ -440,7 +456,7 @@ namespace Notes
                     undoRedoObj.Line = currentLine;
                     undoRedoObj.CharIndex = main_richTextBox.SelectionStart;
                     undoRedoObj.Action = "Enter";
-                    undoRedoObj.DeletedTxt = ""; 
+                    undoRedoObj.DeletedTxt = "";
                     undoRedoObj.SelectionLength = 1; 
                     undoList.Push(undoRedoObj);
                 }
@@ -556,7 +572,7 @@ namespace Notes
                     DeleteCurrentLine();
                 }
             }
-            else if((char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode))) || e.KeyData == Keys.Space)
+            else if(char.IsLetter(Convert.ToChar(e.KeyCode)) || char.IsNumber(Convert.ToChar(e.KeyCode)) || e.KeyData == Keys.Space)
             {
                 // Undo add to list if there is selected text and any key letter or number is pressed and has replaced the text with the pressed letter
                 if (main_richTextBox.SelectedText.Length > 0)
@@ -641,7 +657,7 @@ namespace Notes
                 main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
 
 
-                if(undoRedoObj.Type == "UndoType")
+                if (undoRedoObj.Type == "UndoType")
                 {
                   main_richTextBox.SelectedText = "";
                 }
@@ -695,12 +711,21 @@ namespace Notes
 
                     // Replace the "aaa" length with the "45 length"
                     int replacedTxtLength = undoRedoObj.DeletedTxt.Length;
-                    undoRedoObj = redoList.Pop();
+                    if(redoList.Count > 0)
+                    {
+                        undoRedoObj = redoList.Pop();
+                    }
                     //undoList.Push(undoRedoObj);
                     undoRedoObj.SelectionLength = replacedTxtLength;
                      
                     undoObjRewrite.SelectionLength = undoRedoObj.DeletedTxt.Length;
                     undoList.Push(undoObjRewrite);
+                }
+                else if(undoRedoObj.Action == "Enter")
+                {
+                    undoList.Push(undoRedoObj); // Push the unmodified object to undo
+                    undoRedoObj.DeletedTxt = Environment.NewLine;
+                    undoRedoObj.SelectionLength = 1;
                 }
                 else
                 {
@@ -708,23 +733,25 @@ namespace Notes
                 }
                 // Take the 45 and replace its length with the "aaa"
 
+ 
                 main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
-                
+
 
 
                 //if (undoRedoObj.Action == "Paste")
                 //{
                 //    main_richTextBox.SelectedText = "";
                 //}
+                if (undoRedoObj.Action == "Del")
+                {
+                    main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
+                }
                 main_richTextBox.SelectedText = undoRedoObj.DeletedTxt;
 
 
 
 
-                if (undoRedoObj.Action == "Del")
-                {
-                    main_richTextBox.Select(main_richTextBox.SelectionStart - 1, 0); // On undo type "Del button" move the carret -1 so it is in the correct position
-                }
+                
             }
         }
 
@@ -741,14 +768,6 @@ namespace Notes
 
 
 
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
-            this.Size = new Size(360, 400);
-            this.Location = new Point((ScreenW) - (this.Width), 0);
-            this.Text = fileName;
-        }
 
 
         private void ReadAllNotes()
