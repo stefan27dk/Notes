@@ -716,7 +716,7 @@ namespace Notes
                         undoRedoObj = redoList.Pop();
                     }
                     //undoList.Push(undoRedoObj);
-                    undoRedoObj.SelectionLength = replacedTxtLength;
+                    undoRedoObj.SelectionLength = replacedTxtLength+1;
                      
                     undoObjRewrite.SelectionLength = undoRedoObj.DeletedTxt.Length;
                     undoList.Push(undoObjRewrite);
