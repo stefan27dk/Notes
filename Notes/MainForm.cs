@@ -734,7 +734,7 @@ namespace Notes
                 // Take the 45 and replace its length with the "aaa"
 
  
-                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength);
+                main_richTextBox.Select(undoRedoObj.CharIndex, undoRedoObj.SelectionLength-1);
 
 
 
