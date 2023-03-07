@@ -1051,6 +1051,16 @@ namespace Notes
             Process.Start("explorer", e.LinkText);
         }
 
+        private void copy_all_button_Click(object sender, EventArgs e)
+        {
+            int currentCaret = main_richTextBox.SelectionStart;
+            main_richTextBox.SelectAll();
+            Clipboard.SetText(main_richTextBox.SelectedText);
+            main_richTextBox.DeselectAll();
+            main_richTextBox.Focus();
+            main_richTextBox.SelectionStart = currentCaret;
+        }
+
 
 
 
