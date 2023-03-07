@@ -480,10 +480,15 @@ namespace Notes
 
 
             // Key Shortcuts --------------------------------------------------------
-            if (e.KeyData == (Keys.Control | Keys.I))
+             if (e.KeyData == (Keys.Control | Keys.I))
             {
                 e.SuppressKeyPress = true;
                 ToggleItalic();
+            }
+            else if (e.Alt)
+            {
+                e.SuppressKeyPress = true;
+                main_richTextBox.ScrollToCaret();
             }
             else if (e.KeyData == (Keys.Control | Keys.U))
             {
@@ -1033,6 +1038,7 @@ namespace Notes
             ShowCharIndexAndLine();
             //int wordsCount = main_richTextBox.Text.Split(' ').Length;
             //words_count_label.Text = "Words:" + wordsCount.ToString();
+             
         }
 
 
