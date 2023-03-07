@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection.Emit;
 using System.Runtime.Intrinsics.X86;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -572,7 +573,7 @@ namespace Notes
                     DeleteCurrentLine();
                 }
             }
-            else if(!char.IsControl(Convert.ToChar(e.KeyCode)))
+            else if(!char.IsControl(Convert.ToChar(e.KeyCode)) || e.KeyData == (Keys.Control | Keys.V))
             {
                 // Undo add to list if there is selected text and any key letter or number is pressed and has replaced the text with the pressed letter
                 if (main_richTextBox.SelectedText.Length > 0)
@@ -1043,6 +1044,11 @@ namespace Notes
         private void main_richTextBox_MouseUp(object sender, MouseEventArgs e)
         {
             ShowCharIndexAndLine();
+        }
+
+        private void main_richTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
+        { 
+            Process.Start("explorer", e.LinkText);
         }
 
 
