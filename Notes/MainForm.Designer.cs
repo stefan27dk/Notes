@@ -55,6 +55,8 @@
             this.char_index_label = new System.Windows.Forms.Label();
             this.line_label = new System.Windows.Forms.Label();
             this.copy_all_button = new System.Windows.Forms.Button();
+            this.scroll_to_top_button = new System.Windows.Forms.Button();
+            this.scroll_to_bottom_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -226,11 +228,14 @@
             // zoom_richtextbox_trackBar
             // 
             this.zoom_richtextbox_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.zoom_richtextbox_trackBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(536, 517);
+            this.zoom_richtextbox_trackBar.Maximum = 100;
             this.zoom_richtextbox_trackBar.Minimum = 1;
             this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
             this.zoom_richtextbox_trackBar.Size = new System.Drawing.Size(104, 45);
             this.zoom_richtextbox_trackBar.TabIndex = 15;
+            this.zoom_richtextbox_trackBar.TickFrequency = 20;
             this.zoom_richtextbox_trackBar.Value = 1;
             this.zoom_richtextbox_trackBar.ValueChanged += new System.EventHandler(this.zoom_richtextbox_trackBar_ValueChanged);
             // 
@@ -347,12 +352,34 @@
             this.copy_all_button.UseVisualStyleBackColor = true;
             this.copy_all_button.Click += new System.EventHandler(this.copy_all_button_Click);
             // 
+            // scroll_to_top_button
+            // 
+            this.scroll_to_top_button.Location = new System.Drawing.Point(565, 19);
+            this.scroll_to_top_button.Name = "scroll_to_top_button";
+            this.scroll_to_top_button.Size = new System.Drawing.Size(75, 23);
+            this.scroll_to_top_button.TabIndex = 27;
+            this.scroll_to_top_button.Text = "Scroll to Top";
+            this.scroll_to_top_button.UseVisualStyleBackColor = true;
+            this.scroll_to_top_button.Click += new System.EventHandler(this.scroll_to_top_button_Click);
+            // 
+            // scroll_to_bottom_button
+            // 
+            this.scroll_to_bottom_button.Location = new System.Drawing.Point(524, 49);
+            this.scroll_to_bottom_button.Name = "scroll_to_bottom_button";
+            this.scroll_to_bottom_button.Size = new System.Drawing.Size(113, 23);
+            this.scroll_to_bottom_button.TabIndex = 28;
+            this.scroll_to_bottom_button.Text = "Scroll To Bottom";
+            this.scroll_to_bottom_button.UseVisualStyleBackColor = true;
+            this.scroll_to_bottom_button.Click += new System.EventHandler(this.scroll_to_bottom_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(649, 547);
+            this.Controls.Add(this.scroll_to_bottom_button);
+            this.Controls.Add(this.scroll_to_top_button);
             this.Controls.Add(this.copy_all_button);
             this.Controls.Add(this.line_label);
             this.Controls.Add(this.char_index_label);
@@ -420,5 +447,7 @@
         private Label char_index_label;
         private Label line_label;
         private Button copy_all_button;
+        private Button scroll_to_top_button;
+        private Button scroll_to_bottom_button;
     }
 }

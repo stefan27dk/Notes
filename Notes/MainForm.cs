@@ -475,7 +475,7 @@ namespace Notes
 
 
 
-          
+
 
 
 
@@ -830,7 +830,7 @@ namespace Notes
 
         private void zoom_richtextbox_trackBar_ValueChanged(object sender, EventArgs e)
         {
-            main_richTextBox.ZoomFactor = zoom_richtextbox_trackBar.Value;
+            main_richTextBox.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
         }
 
 
@@ -1059,6 +1059,20 @@ namespace Notes
             main_richTextBox.DeselectAll();
             main_richTextBox.Focus();
             main_richTextBox.SelectionStart = currentCaret;
+        }
+
+        private void scroll_to_top_button_Click(object sender, EventArgs e)
+        {
+            main_richTextBox.SelectionStart = 0;
+            main_richTextBox.ScrollToCaret();
+            main_richTextBox.Focus();
+        }
+
+        private void scroll_to_bottom_button_Click(object sender, EventArgs e)
+        {
+            main_richTextBox.SelectionStart = main_richTextBox.Text.Length;
+            main_richTextBox.ScrollToCaret();
+            main_richTextBox.Focus();
         }
 
 
