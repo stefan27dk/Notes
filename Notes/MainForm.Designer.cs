@@ -57,6 +57,7 @@
             this.copy_all_button = new System.Windows.Forms.Button();
             this.scroll_to_top_button = new System.Windows.Forms.Button();
             this.scroll_to_bottom_button = new System.Windows.Forms.Button();
+            this.today_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -372,12 +373,23 @@
             this.scroll_to_bottom_button.UseVisualStyleBackColor = true;
             this.scroll_to_bottom_button.Click += new System.EventHandler(this.scroll_to_bottom_button_Click);
             // 
+            // today_button
+            // 
+            this.today_button.Location = new System.Drawing.Point(423, 54);
+            this.today_button.Name = "today_button";
+            this.today_button.Size = new System.Drawing.Size(75, 23);
+            this.today_button.TabIndex = 29;
+            this.today_button.Text = "Today";
+            this.today_button.UseVisualStyleBackColor = true;
+            this.today_button.Click += new System.EventHandler(this.today_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(649, 547);
+            this.Controls.Add(this.today_button);
             this.Controls.Add(this.scroll_to_bottom_button);
             this.Controls.Add(this.scroll_to_top_button);
             this.Controls.Add(this.copy_all_button);
@@ -449,5 +461,6 @@
         private Button copy_all_button;
         private Button scroll_to_top_button;
         private Button scroll_to_bottom_button;
+        private Button today_button;
     }
 }

@@ -1075,6 +1075,12 @@ namespace Notes
             main_richTextBox.Focus();
         }
 
+        private void today_button_Click(object sender, EventArgs e)
+        {
+            string today = DateTime.Now.ToString(" dd-MM-yyyy  HH:mm:ss");
+            main_richTextBox.SelectedText = today;
+        }
+
 
 
 
