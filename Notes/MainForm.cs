@@ -34,7 +34,7 @@ namespace Notes
         private void MainForm_Load(object sender, EventArgs e)
         {
             int ScreenW = Screen.PrimaryScreen.Bounds.Width;
-            this.Size = new Size(360, 400);
+            //this.Size = new Size(360, 400);
             this.Location = new Point((ScreenW) - (this.Width), 0);
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
@@ -1079,6 +1079,17 @@ namespace Notes
         {
             string today = DateTime.Now.ToString(" dd-MM-yyyy  HH:mm:ss");
             main_richTextBox.SelectedText = today;
+            main_richTextBox.Focus();
+        }
+
+        private void to_do_button_Click(object sender, EventArgs e)
+        {
+            int currentCaret = main_richTextBox.SelectionStart;
+            string toDoTxt = "\nTo Do:\n\n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n11.\n12.\n13.\n14.\n15.\n16.\n17.\n18.\n19.\n20.\n";
+            main_richTextBox.SelectedText = toDoTxt;
+            main_richTextBox.Focus();
+            main_richTextBox.SelectionStart = currentCaret + 11;
+
         }
 
 

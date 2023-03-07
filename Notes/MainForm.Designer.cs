@@ -58,6 +58,7 @@
             this.scroll_to_top_button = new System.Windows.Forms.Button();
             this.scroll_to_bottom_button = new System.Windows.Forms.Button();
             this.today_button = new System.Windows.Forms.Button();
+            this.to_do_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -71,12 +72,12 @@
             this.main_richTextBox.EnableAutoDragDrop = true;
             this.main_richTextBox.HideSelection = false;
             this.main_richTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.main_richTextBox.Location = new System.Drawing.Point(3, 69);
+            this.main_richTextBox.Location = new System.Drawing.Point(3, 97);
             this.main_richTextBox.MaxLength = 999999999;
             this.main_richTextBox.Name = "main_richTextBox";
             this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.main_richTextBox.ShowSelectionMargin = true;
-            this.main_richTextBox.Size = new System.Drawing.Size(653, 402);
+            this.main_richTextBox.Size = new System.Drawing.Size(789, 374);
             this.main_richTextBox.TabIndex = 0;
             this.main_richTextBox.Text = "";
             this.main_richTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.main_richTextBox_LinkClicked);
@@ -230,7 +231,7 @@
             // 
             this.zoom_richtextbox_trackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.zoom_richtextbox_trackBar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(536, 517);
+            this.zoom_richtextbox_trackBar.Location = new System.Drawing.Point(672, 517);
             this.zoom_richtextbox_trackBar.Maximum = 100;
             this.zoom_richtextbox_trackBar.Minimum = 1;
             this.zoom_richtextbox_trackBar.Name = "zoom_richtextbox_trackBar";
@@ -327,7 +328,7 @@
             // 
             this.char_index_label.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.char_index_label.AutoSize = true;
-            this.char_index_label.Location = new System.Drawing.Point(280, 523);
+            this.char_index_label.Location = new System.Drawing.Point(348, 523);
             this.char_index_label.Name = "char_index_label";
             this.char_index_label.Size = new System.Drawing.Size(67, 15);
             this.char_index_label.TabIndex = 24;
@@ -337,7 +338,7 @@
             // 
             this.line_label.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.line_label.AutoSize = true;
-            this.line_label.Location = new System.Drawing.Point(280, 496);
+            this.line_label.Location = new System.Drawing.Point(348, 496);
             this.line_label.Name = "line_label";
             this.line_label.Size = new System.Drawing.Size(32, 15);
             this.line_label.TabIndex = 25;
@@ -355,7 +356,8 @@
             // 
             // scroll_to_top_button
             // 
-            this.scroll_to_top_button.Location = new System.Drawing.Point(565, 19);
+            this.scroll_to_top_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scroll_to_top_button.Location = new System.Drawing.Point(710, 77);
             this.scroll_to_top_button.Name = "scroll_to_top_button";
             this.scroll_to_top_button.Size = new System.Drawing.Size(75, 23);
             this.scroll_to_top_button.TabIndex = 27;
@@ -365,7 +367,8 @@
             // 
             // scroll_to_bottom_button
             // 
-            this.scroll_to_bottom_button.Location = new System.Drawing.Point(524, 49);
+            this.scroll_to_bottom_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.scroll_to_bottom_button.Location = new System.Drawing.Point(672, 468);
             this.scroll_to_bottom_button.Name = "scroll_to_bottom_button";
             this.scroll_to_bottom_button.Size = new System.Drawing.Size(113, 23);
             this.scroll_to_bottom_button.TabIndex = 28;
@@ -383,12 +386,23 @@
             this.today_button.UseVisualStyleBackColor = true;
             this.today_button.Click += new System.EventHandler(this.today_button_Click);
             // 
+            // to_do_button
+            // 
+            this.to_do_button.Location = new System.Drawing.Point(526, 18);
+            this.to_do_button.Name = "to_do_button";
+            this.to_do_button.Size = new System.Drawing.Size(75, 23);
+            this.to_do_button.TabIndex = 30;
+            this.to_do_button.Text = "To Do";
+            this.to_do_button.UseVisualStyleBackColor = true;
+            this.to_do_button.Click += new System.EventHandler(this.to_do_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(649, 547);
+            this.ClientSize = new System.Drawing.Size(785, 547);
+            this.Controls.Add(this.to_do_button);
             this.Controls.Add(this.today_button);
             this.Controls.Add(this.scroll_to_bottom_button);
             this.Controls.Add(this.scroll_to_top_button);
@@ -462,5 +476,6 @@
         private Button scroll_to_top_button;
         private Button scroll_to_bottom_button;
         private Button today_button;
+        private Button to_do_button;
     }
 }
