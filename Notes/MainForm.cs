@@ -626,7 +626,7 @@ namespace Notes
 
                 //undoTypeList.Push(undoTypeObj);
             }
-          
+           
         }
 
 
@@ -1031,6 +1031,8 @@ namespace Notes
         private void main_richTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             ShowCharIndexAndLine();
+            //int wordsCount = main_richTextBox.Text.Split(' ').Length;
+            //words_count_label.Text = "Words:" + wordsCount.ToString();
         }
 
 
@@ -1090,6 +1092,15 @@ namespace Notes
             main_richTextBox.Focus();
             main_richTextBox.SelectionStart = currentCaret + 11;
 
+        }
+
+        private void main_richTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MatchCollection wordCount = Regex.Matches(main_richTextBox.Text, @"[\W]+");
+            words_count_label.Text = wordCount.Count.ToString();
+
+            //int wordsCount = main_richTextBox.Text.Split(' ').Length;
+            //words_count_label.Text = "Words:" + wordsCount.ToString();
         }
 
 

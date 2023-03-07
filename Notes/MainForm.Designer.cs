@@ -59,6 +59,7 @@
             this.scroll_to_bottom_button = new System.Windows.Forms.Button();
             this.today_button = new System.Windows.Forms.Button();
             this.to_do_button = new System.Windows.Forms.Button();
+            this.words_count_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +82,7 @@
             this.main_richTextBox.TabIndex = 0;
             this.main_richTextBox.Text = "";
             this.main_richTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.main_richTextBox_LinkClicked);
+            this.main_richTextBox.TextChanged += new System.EventHandler(this.main_richTextBox_TextChanged);
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
             this.main_richTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.main_richTextBox_KeyPress);
             this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp);
@@ -396,12 +398,22 @@
             this.to_do_button.UseVisualStyleBackColor = true;
             this.to_do_button.Click += new System.EventHandler(this.to_do_button_Click);
             // 
+            // words_count_label
+            // 
+            this.words_count_label.AutoSize = true;
+            this.words_count_label.Location = new System.Drawing.Point(185, 500);
+            this.words_count_label.Name = "words_count_label";
+            this.words_count_label.Size = new System.Drawing.Size(44, 15);
+            this.words_count_label.TabIndex = 31;
+            this.words_count_label.Text = "Words:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(785, 547);
+            this.Controls.Add(this.words_count_label);
             this.Controls.Add(this.to_do_button);
             this.Controls.Add(this.today_button);
             this.Controls.Add(this.scroll_to_bottom_button);
@@ -477,5 +489,6 @@
         private Button scroll_to_bottom_button;
         private Button today_button;
         private Button to_do_button;
+        private Label words_count_label;
     }
 }
