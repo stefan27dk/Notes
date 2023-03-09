@@ -17,6 +17,7 @@ namespace Notes
         public MainForm()
         {
             InitializeComponent();
+            main_richTextBox.MouseWheel += new MouseEventHandler(main_richTextBox_Mouse_Weel);
         }
 
        
@@ -38,12 +39,14 @@ namespace Notes
             this.Location = new Point((ScreenW) - (this.Width), 0);
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
+          
         }
 
-
-
-
-
+        private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
+        {
+            //main_richTextBox.Text = "sdass";
+        }
+         
 
         private void AlignTextLeft()
         {
