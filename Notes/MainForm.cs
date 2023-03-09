@@ -485,7 +485,7 @@ namespace Notes
                 e.SuppressKeyPress = true;
                 ToggleItalic();
             }
-            else if (e.Alt)
+            else if (e.Control && e.Alt)
             {
                 e.SuppressKeyPress = true;
                 main_richTextBox.ScrollToCaret();
