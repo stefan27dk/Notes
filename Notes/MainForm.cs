@@ -41,14 +41,81 @@ namespace Notes
             this.Location = new Point((ScreenW) - (this.Width), 0);
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
-          
+            Drag_Drop_Hook_Eventhandlers();
         }
 
         //private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
         //{
         //    //main_richTextBox.Text = "sdass";
         //}
-         
+
+
+
+        private void Drag_Drop_Hook_Eventhandlers()
+        {
+            main_richTextBox.DragEnter += main_richTextBox_DragEnter;
+            main_richTextBox.DragDrop += main_richTextBox_DragDrop;
+
+            //main_richTextBox.AllowDrop = true;
+            //main_richTextBox.EnableAutoDragDrop = true;
+        }
+
+        private void main_richTextBox_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void main_richTextBox_DragDrop(object sender, DragEventArgs e)
+        {
+
+            Invoke(new Action(() =>
+            {
+                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+                if (paths != null)
+                {
+                    RichTextBox rt_box = new RichTextBox();
+
+
+                    for (int i = 0; i < paths.Length; i++)
+                    {
+                        if (paths[i].Substring(paths[i].Length - 4) == ".rtf")
+                        { 
+                            rt_box.LoadFile(paths[i]);
+                            //string rtf = this.main_richTextBox.Rtf + rt_box.Rtf;
+                            this.main_richTextBox.Rtf = this.main_richTextBox.Rtf.Substring(0, this.main_richTextBox.Rtf.Length - 3) + rt_box.Rtf.Substring(1, rt_box.Rtf.Length - 1);
+                           
+                            e.Effect = DragDropEffects.None; // with this the paste won't be doubled
+                        }
+                    }
+                }
+            })); 
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void AlignTextLeft()
         {
