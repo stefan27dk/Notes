@@ -71,10 +71,10 @@ public class RichTextBoxE : RichTextBox
                 {
                     if (this.ZoomFactor > 1)
                     {
-                      this.ZoomFactor = (float)(this.ZoomFactor - 0.3); 
+                      this.ZoomFactor = (float)(this.ZoomFactor - 0.3);
                     }
                 }
-
+                return;
             }
 
 
