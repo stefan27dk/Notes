@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using Notes.Models;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.IO;
 using System.Reflection.Emit;
 using System.Runtime.Intrinsics.X86;
@@ -17,7 +18,8 @@ namespace Notes
         public MainForm()
         {
             InitializeComponent();
-            main_richTextBox.MouseWheel += new MouseEventHandler(main_richTextBox_Mouse_Weel);
+            //main_richTextBox.MouseWheel += new MouseEventHandler(main_richTextBox_Mouse_Weel);
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.OnPrintPage);
         }
 
        
@@ -42,10 +44,10 @@ namespace Notes
           
         }
 
-        private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
-        {
-            //main_richTextBox.Text = "sdass";
-        }
+        //private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
+        //{
+        //    //main_richTextBox.Text = "sdass";
+        //}
          
 
         private void AlignTextLeft()
@@ -383,7 +385,6 @@ namespace Notes
    
 
 
-
         private void main_richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -398,7 +399,6 @@ namespace Notes
             if (e.KeyData == Keys.Back) // Add CTRL + X  "CUT when doing cut add to undo list"
             {
                 //string currentlinetext = main_richTextBox.Lines[currentline];
-
                 // !!!! Add here if selection lngth > 1 dont select
                 if (main_richTextBox.SelectionLength == 0 && main_richTextBox.Text.Length > 0) // If there is no selection
                 {
@@ -1145,10 +1145,79 @@ namespace Notes
         //}
 
         //Shortcut keys -----KEY WATCHER- ----SHORTCUT KEYS----------------::END::------------------------------------------------------------------------------------
+         
 
 
 
 
 
+
+
+
+
+
+
+        // Print Richtextbox ---------------------------------------------------------------------------------------------
+        private void print_button_Click(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+
+
+
+
+
+
+ 
+
+        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            char[] param = { '\n' };
+
+            if (printDialog1.PrinterSettings.PrintRange == PrintRange.Selection)
+            {
+                lines = main_richTextBox.SelectedText.Split(param);
+            }
+            else
+            {
+                lines = main_richTextBox.Text.Split(param);
+            }
+
+            int i = 0;
+            char[] trimParam = { '\r' };
+            foreach (string s in lines)
+            {
+                lines[i++] = s.TrimEnd(trimParam);
+            }
+        }
+
+        private int linesPrinted;
+        private string[] lines;
+
+        private void OnPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            int x = e.MarginBounds.Left;
+            int y = e.MarginBounds.Top;
+            Brush brush = new SolidBrush(main_richTextBox.ForeColor);
+
+            while (linesPrinted < lines.Length)
+            {
+                e.Graphics.DrawString(lines[linesPrinted++],
+                    main_richTextBox.Font, brush, x, y);
+                y += 15;
+                if (y >= e.MarginBounds.Bottom)
+                {
+                    e.HasMorePages = true;
+                    return;
+                }
+            }
+
+            linesPrinted = 0;
+            e.HasMorePages = false;
+        }
     }
 }

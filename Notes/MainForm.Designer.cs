@@ -60,6 +60,9 @@
             this.today_button = new System.Windows.Forms.Button();
             this.to_do_button = new System.Windows.Forms.Button();
             this.words_count_label = new System.Windows.Forms.Label();
+            this.print_button = new System.Windows.Forms.Button();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -407,12 +410,27 @@
             this.words_count_label.TabIndex = 31;
             this.words_count_label.Text = "Words:";
             // 
+            // print_button
+            // 
+            this.print_button.Location = new System.Drawing.Point(563, 54);
+            this.print_button.Name = "print_button";
+            this.print_button.Size = new System.Drawing.Size(75, 23);
+            this.print_button.TabIndex = 32;
+            this.print_button.Text = "Print";
+            this.print_button.UseVisualStyleBackColor = true;
+            this.print_button.Click += new System.EventHandler(this.print_button_Click);
+            // 
+            // printDialog1
+            // 
+            this.printDialog1.UseEXDialog = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(785, 547);
+            this.Controls.Add(this.print_button);
             this.Controls.Add(this.words_count_label);
             this.Controls.Add(this.to_do_button);
             this.Controls.Add(this.today_button);
@@ -490,5 +508,8 @@
         private Button today_button;
         private Button to_do_button;
         private Label words_count_label;
+        private Button print_button;
+        private PrintDialog printDialog1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }
