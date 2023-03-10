@@ -1029,22 +1029,29 @@ namespace Notes
             SaveTextToFile();
         }
 
-        private void MainForm_Leave(object sender, EventArgs e)
-        {
-        }
+     
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CreateFileNameAndSave();
+
+            // Close all forms if last form is closing
+            if(Application.OpenForms.Count == 1)
+            {
+                CloseAllForms();
+            }
+        }
+
+        private void CreateFileNameAndSave()
         {
             string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
             txt = Regex.Replace(txt, @"\t|\n|\r", "");
 
             if (save && txt.Length > 0)
             {
-               SaveTextToFile(); 
+                SaveTextToFile();
             }
         }
-
-
 
 
         // The path to the key where Windows looks for startup applications
@@ -1096,7 +1103,7 @@ namespace Notes
                     System.Windows.Forms.Application.Exit();
                     System.Environment.Exit(1);
 
-                }));
+                })); 
         }
 
         private void close_all_forms_button_Click(object sender, EventArgs e)
@@ -1193,7 +1200,7 @@ namespace Notes
         private void main_richTextBox_TextChanged(object sender, EventArgs e)
         {
             MatchCollection wordCount = Regex.Matches(main_richTextBox.Text, @"[\W]+");
-            words_count_label.Text = wordCount.Count.ToString();
+            words_count_label.Text = "Words:" +  wordCount.Count.ToString();
 
             //int wordsCount = main_richTextBox.Text.Split(' ').Length;
             //words_count_label.Text = "Words:" + wordsCount.ToString();
