@@ -104,6 +104,9 @@ namespace Notes
                         else if (paths[i].Substring(paths[i].Length - 4) == ".rtf")
                         {
                             this.main_richTextBox.LoadFile(paths[i]);
+                            fileName = paths[i];
+                            this.Text = paths[i];
+                            e.Effect = DragDropEffects.None; // With this the paste won't be doubled
                         }
                         else if (paths[i].Substring(paths[i].Length - 4) == ".txt") // Load Txt
                         {
