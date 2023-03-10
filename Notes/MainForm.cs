@@ -86,13 +86,30 @@ namespace Notes
 
                     for (int i = 0; i < paths.Length; i++)
                     {
-                        if (paths[i].Substring(paths[i].Length - 4) == ".rtf")
-                        { 
-                            rt_box.LoadFile(paths[i]);
-                            //string rtf = this.main_richTextBox.Rtf + rt_box.Rtf;
-                            this.main_richTextBox.Rtf = this.main_richTextBox.Rtf.Substring(0, this.main_richTextBox.Rtf.Length - 3) + rt_box.Rtf.Substring(1, rt_box.Rtf.Length - 1);
-                           
-                            e.Effect = DragDropEffects.None; // with this the paste won't be doubled
+                        if (paths.Length > 1)
+                        {
+                            if (paths[i].Substring(paths[i].Length - 4) == ".rtf")
+                            {
+                                rt_box.LoadFile(paths[i]);
+                                this.main_richTextBox.Rtf = this.main_richTextBox.Rtf.Substring(0, this.main_richTextBox.Rtf.Length - 3) + rt_box.Rtf.Substring(1, rt_box.Rtf.Length - 1); // Merging rtf file becuase if thi is not doen images are not showed when loaded.
+
+                                e.Effect = DragDropEffects.None; // With this the paste won't be doubled
+                            }
+                            else if (paths[i].Substring(paths[i].Length - 4) == ".txt")
+                            {
+                                string text = System.IO.File.ReadAllText(paths[i]);
+                                main_richTextBox.AppendText(text);
+                            }
+                        }
+                        else if (paths[i].Substring(paths[i].Length - 4) == ".rtf")
+                        {
+                            this.main_richTextBox.LoadFile(paths[i]);
+                        }
+                        else if (paths[i].Substring(paths[i].Length - 4) == ".txt") // Load Txt
+                        {
+                            string text = System.IO.File.ReadAllText(paths[i]);
+                            main_richTextBox.AppendText(text);
+                            e.Effect = DragDropEffects.None; // With this the paste won't be doubled
                         }
                     }
                 }
