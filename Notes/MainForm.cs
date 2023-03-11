@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection.Emit;
 using System.Runtime.Intrinsics.X86;
 using System.Security.Policy;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace Notes
             InitializeComponent();
             //main_richTextBox.MouseWheel += new MouseEventHandler(main_richTextBox_Mouse_Weel);
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.OnPrintPage);
+            
         }
 
        
@@ -31,7 +33,7 @@ namespace Notes
         string fileName = "";
         bool save = true;
         MainForm newForm;
-
+        NoteSettingsModel noteSettings = new NoteSettingsModel();
 
         // Main Form Load -----------------------------------------------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace Notes
             this.Location = new Point((ScreenW) - (this.Width), 0);
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
-            Drag_Drop_Hook_Eventhandlers();
+            Drag_Drop_Hook_Eventhandlers(); 
         }
 
         //private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
@@ -49,7 +51,10 @@ namespace Notes
         //    //main_richTextBox.Text = "sdass";
         //}
 
-
+        private void ApplySettings()
+        {
+              main_richTextBox.BackColor = noteSettings.NoteBackgroundColor;
+        }
 
         private void Drag_Drop_Hook_Eventhandlers()
         {
@@ -872,14 +877,19 @@ namespace Notes
 
             foreach (var file in filesArray)
             {
-                new Thread(() =>
+                if(file.Substring(file.Length-4) == ".rtf")
                 {
-                    var newNoteForm = new MainForm();
-                    newNoteForm.main_richTextBox.LoadFile(file);
-                    newNoteForm.fileName = file;
-                    newNoteForm.Show();
-                    Application.Run();
-                }).Start();
+                    new Thread(() =>
+                    {
+                        var newNoteForm = new MainForm();
+                        newNoteForm.main_richTextBox.LoadFile(file);
+                        newNoteForm.fileName = file;
+                        newNoteForm.ReadSettingsFile(file);
+                        newNoteForm.ApplySettings();
+                        newNoteForm.Show();
+                        Application.Run();
+                    }).Start();
+                }
             }
              
 
@@ -992,7 +1002,7 @@ namespace Notes
         private void SaveTextToFile()
         { 
             string guiId = System.Guid.NewGuid().ToString();
-         // Naming file code
+         // Naming file code - Generate Name
             if(fileName == "")
             { 
                 if (main_richTextBox.Text.Length > 0) // If not empty
@@ -1016,10 +1026,49 @@ namespace Notes
             Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
             main_richTextBox.SaveFile(fileName, RichTextBoxStreamType.RichText);
             this.Text = fileName;
+
         }
 
 
 
+        private void CreateFileSettingsFile()
+        {
+            //Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
+
+            //string json = JsonSerializer.Serialize(noteSettings);
+            //File.WriteAllText(fileName.Substring(0, fileName.Length-3) + "json", json);
+
+            if(fileName.Length > 0)
+            {
+                string json = JsonSerializer.Serialize(noteSettings);
+                File.WriteAllText(fileName.Substring(0, fileName.Length - 3) + "json", json);
+                //await using FileStream createStream = File.Create(fileName.Substring(0, fileName.Length - 3) + "json");
+                //await JsonSerializer.SerializeAsync(createStream, noteSettings); 
+            }
+        }
+
+
+
+        private void ReadSettingsFile(string fileName)
+        {
+            //string json = JsonSerializer.Serialize(noteSettings);
+            //File.WriteAllText(fileName.Substring(0, fileName.Length-3) + "json", json);
+
+            string jsonFile = fileName.Substring(0, fileName.Length - 3) + "json";
+            
+            if (File.Exists(jsonFile))
+            {
+                string jsonString = File.ReadAllText(jsonFile);
+                var loadedSettings = JsonSerializer.Deserialize<NoteSettingsModel>(jsonString)!;
+
+                // await using FileStream openStream = File.OpenRead(jsonFile);
+                //var loadedSettings = await JsonSerializer.DeserializeAsync<NoteSettingsModel>(openStream);
+                if (loadedSettings != null)
+                {
+                    noteSettings = loadedSettings;
+                }
+            }
+        }
 
 
 
@@ -1027,6 +1076,7 @@ namespace Notes
         private void save_button_Click(object sender, EventArgs e)
         {
             SaveTextToFile();
+            CreateFileSettingsFile();
         }
 
      
@@ -1034,9 +1084,10 @@ namespace Notes
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CreateFileNameAndSave();
+            CreateFileSettingsFile();
 
             // Close all forms if last form is closing
-            if(Application.OpenForms.Count == 1)
+            if (Application.OpenForms.Count == 1)
             {
                 CloseAllForms();
             }
@@ -1312,6 +1363,12 @@ namespace Notes
 
             linesPrinted = 0;
             e.HasMorePages = false;
+        }
+
+        private void chgange_collor_button_Click(object sender, EventArgs e)
+        {
+            noteSettings.NoteBackgroundColor = Color.FromArgb(255, 255, 255);
+            main_richTextBox.BackColor = Color.White;
         }
     }
 }
