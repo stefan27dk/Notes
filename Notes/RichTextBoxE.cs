@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -59,11 +60,17 @@ public class RichTextBoxE : RichTextBox
         {
            // Zoom text with CTRL + Mouse weel
             if(ModifierKeys.ToString() == "Control")
-            { 
+            {
+                MainForm currentForm = (MainForm)this.FindForm();
+
                 if (GET_WHEEL_DELTA_WPARAM(m.WParam) > 0)
-                {
+                { 
                     if (this.ZoomFactor < 10)
-                    {
+                    { 
+                        if (currentForm != null)
+                        { 
+                            currentForm.noteSettings.ZoomFactor = (float)(this.ZoomFactor + 0.3);
+                        }
                         this.ZoomFactor = (float)(this.ZoomFactor + 0.3);
                     }
                 }
@@ -71,7 +78,12 @@ public class RichTextBoxE : RichTextBox
                 {
                     if (this.ZoomFactor > 1)
                     {
-                      this.ZoomFactor = (float)(this.ZoomFactor - 0.3);
+                        if (currentForm != null)
+                        {
+                            currentForm.noteSettings.ZoomFactor = (float)(this.ZoomFactor - 0.3);
+                        }
+
+                        this.ZoomFactor = (float)(this.ZoomFactor - 0.3);
                     }
                 }
                 return;

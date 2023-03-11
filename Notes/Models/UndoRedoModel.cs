@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Notes.Models
 {
-    internal class UndoRedoModel
+    public class UndoRedoModel
     {
         public int Line { get; set; }
         public int CharIndex { get; set; }

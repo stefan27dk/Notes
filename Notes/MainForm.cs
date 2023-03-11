@@ -34,7 +34,7 @@ namespace Notes
         string fileName = "";
         bool save = true;
         MainForm newForm;
-        NoteSettingsModel noteSettings = new NoteSettingsModel();
+        public NoteSettingsModel noteSettings = new NoteSettingsModel();
 
         // Main Form Load -----------------------------------------------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
@@ -54,7 +54,12 @@ namespace Notes
 
         private void ApplySettings()
         {
-              main_richTextBox.BackColor = noteSettings.NoteBackgroundColor;
+            main_richTextBox.BackColor = noteSettings.NoteBackgroundColor;
+            this.Opacity = noteSettings.Transparency;
+            main_richTextBox.ZoomFactor = noteSettings.ZoomFactor;
+            this.TopMost = noteSettings.OnTop;
+            this.Size= noteSettings.Size;
+            this.Location= noteSettings.Location;
         }
 
         private void Drag_Drop_Hook_Eventhandlers()
@@ -945,11 +950,12 @@ namespace Notes
         private void form_opacity_trackBar_ValueChanged(object sender, EventArgs e)
         {
             this.Opacity = form_opacity_trackBar.Value * 0.01;  // Adjust Form Opacity
+            noteSettings.Transparency = form_opacity_trackBar.Value * 0.01; // Add to settings object // Later on is saved together with the file
         }
 
 
 
- 
+
 
 
         private void onTop_button_Click(object sender, EventArgs e)
