@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using Notes.Models;
+using Notes.Models.Logic;
 using System.Diagnostics;
 using System.Drawing.Printing;
 using System.IO;
@@ -1040,7 +1041,12 @@ namespace Notes
 
             if(fileName.Length > 0)
             {
-                string json = JsonSerializer.Serialize(noteSettings);
+                var options = new JsonSerializerOptions()
+                {
+                    Converters = { new ColorJsonConverter() }
+                };
+
+                string json = JsonSerializer.Serialize(noteSettings, options);
                 File.WriteAllText(fileName.Substring(0, fileName.Length - 3) + "json", json);
                 //await using FileStream createStream = File.Create(fileName.Substring(0, fileName.Length - 3) + "json");
                 //await JsonSerializer.SerializeAsync(createStream, noteSettings); 
@@ -1058,9 +1064,16 @@ namespace Notes
             
             if (File.Exists(jsonFile))
             {
-                string jsonString = File.ReadAllText(jsonFile);
-                var loadedSettings = JsonSerializer.Deserialize<NoteSettingsModel>(jsonString)!;
 
+                var options = new JsonSerializerOptions()
+                {
+                    Converters = {new ColorJsonConverter()}
+                };
+
+
+                string jsonString = File.ReadAllText(jsonFile);
+                NoteSettingsModel loadedSettings = JsonSerializer.Deserialize<NoteSettingsModel>(jsonString, options)!;
+                 
                 // await using FileStream openStream = File.OpenRead(jsonFile);
                 //var loadedSettings = await JsonSerializer.DeserializeAsync<NoteSettingsModel>(openStream);
                 if (loadedSettings != null)
@@ -1367,8 +1380,14 @@ namespace Notes
 
         private void chgange_collor_button_Click(object sender, EventArgs e)
         {
-            noteSettings.NoteBackgroundColor = Color.FromArgb(255, 255, 255);
-            main_richTextBox.BackColor = Color.White;
+            ColorDialog clrDialog = new ColorDialog();
+            
+            //Show the colour dialog and check that user clicked ok
+            if (clrDialog.ShowDialog() == DialogResult.OK)
+            { 
+                noteSettings.NoteBackgroundColor = clrDialog.Color;
+                main_richTextBox.BackColor = clrDialog.Color;
+            } 
         }
     }
 }
