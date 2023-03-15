@@ -1121,8 +1121,13 @@ namespace Notes
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CreateFileNameAndSave(); 
-            CreateSettingsFile();
+            if(save)
+            { 
+              CreateFileNameAndSave(); 
+              CreateSettingsFile();
+            }
+
+
             // Close all forms if last form is closing
             if (Application.OpenForms.Count == 1)
             {
@@ -1135,7 +1140,7 @@ namespace Notes
             string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
             txt = Regex.Replace(txt, @"\t|\n|\r", "");
 
-            if (save && txt.Length > 0)
+            if (txt.Length > 0)
             {
                 SaveTextToFile();
             }
@@ -1206,9 +1211,10 @@ namespace Notes
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
+                File.Delete(fileName.Substring(0, fileName.Length - 3) + "json");
             }
-           
-            if(Application.OpenForms.Count > 1)
+
+            if (Application.OpenForms.Count > 1)
             {
                 this.Close();
             }
