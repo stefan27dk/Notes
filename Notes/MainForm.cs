@@ -1019,31 +1019,33 @@ namespace Notes
             this.Location = new Point((ScreenW) - (this.Width), 0);
         }
 
-
-
-        private void SaveTextToFile()
-        { 
+        private void CreateFilename()
+        {
             string guiId = System.Guid.NewGuid().ToString();
-         // Naming file code - Generate Name
-            if(fileName == "")
-            { 
+            // Naming file code - Generate Name
+            if (fileName == "")
+            {
                 if (main_richTextBox.Text.Length > 0) // If not empty
                 {
-                  string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
-                  txt = Regex.Replace(txt, @"\t|\n|\r", "");
-               
-                    if (txt.Length >= 10) // If it has at lerast 10 chars
+                    string txt = Regex.Replace(main_richTextBox.Text, " {2,}", " "); // Replace whitespaces if they are more than 2
+                    txt = Regex.Replace(txt, @"\t|\n|\r", "");
+
+                    if (txt.Length >= 10) // If it has at least 10 chars
                     {
-                        fileName = path + $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf"; 
+                        fileName = path + $"Note - {txt.Substring(0, 10) + "#" + guiId}.rtf";
                     }
                     else // If it has less than 10 chars
                     {
-                        fileName = path + $"Note - {txt.Substring(0, txt.Length) + "____" + guiId}.rtf"; 
+                        fileName = path + $"Note - {txt.Substring(0, txt.Length) + "____" + guiId}.rtf";
                     }
                 }
             }
 
+        }
 
+        private void SaveTextToFile()
+        {
+            CreateFilename();
             // Save Code
             Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
             main_richTextBox.SaveFile(fileName, RichTextBoxStreamType.RichText);
@@ -1055,12 +1057,16 @@ namespace Notes
 
         private void CreateSettingsFile()
         {
+            // Add Window location to the Settings Model
+            noteSettings.LocationX = this.Location.X;
+            noteSettings.LocationY = this.Location.Y;
+
             //Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
 
             //string json = JsonSerializer.Serialize(noteSettings);
             //File.WriteAllText(fileName.Substring(0, fileName.Length-3) + "json", json);
 
-            if(fileName.Length > 0)
+            if (fileName.Length > 0)
             {
                 var options = new JsonSerializerOptions()
                 {
@@ -1107,7 +1113,7 @@ namespace Notes
 
         private void save_button_Click(object sender, EventArgs e)
         {
-            SaveTextToFile();
+            SaveTextToFile(); 
             CreateSettingsFile();
         }
 
@@ -1115,9 +1121,7 @@ namespace Notes
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CreateFileNameAndSave();
-            noteSettings.LocationX = this.Location.X;
-            noteSettings.LocationY = this.Location.Y;
+            CreateFileNameAndSave(); 
             CreateSettingsFile();
             // Close all forms if last form is closing
             if (Application.OpenForms.Count == 1)
