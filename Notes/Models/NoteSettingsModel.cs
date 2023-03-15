@@ -15,6 +15,7 @@ namespace Notes.Models
        public Stack<UndoRedoModel> UndoRedoList { get; set; } = new Stack<UndoRedoModel>();
        public bool OnTop { get; set; } = false;
        public Size Size { get; set; } = new Size(360, 400);
-       public Point Location { get; set; } = new Point(0,0);
+       public int LocationX { get; set; } = 0;
+       public int LocationY { get; set; } = 0;
     }
 }

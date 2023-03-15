@@ -489,6 +489,7 @@
             this.Text = "Notes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).EndInit();
             this.ResumeLayout(false);

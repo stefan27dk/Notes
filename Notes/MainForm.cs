@@ -21,8 +21,7 @@ namespace Notes
         {
             InitializeComponent();
             //main_richTextBox.MouseWheel += new MouseEventHandler(main_richTextBox_Mouse_Weel);
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.OnPrintPage);
-            
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.OnPrintPage); 
         }
 
        
@@ -39,9 +38,21 @@ namespace Notes
         // Main Form Load -----------------------------------------------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
         {
-            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
-            //this.Size = new Size(360, 400);
-            this.Location = new Point((ScreenW) - (this.Width), 0);
+            if(noteSettings.LocationX == 0 && noteSettings.LocationY == 0)
+            {
+                int ScreenW = Screen.PrimaryScreen.Bounds.Width;
+                this.Location = new Point((ScreenW) - (this.Width), 0); // Default location for the note if location is empty = 0
+
+                // Add the loaction to the settings object
+                noteSettings.LocationX = this.Location.X;
+                noteSettings.LocationY = this.Location.Y;
+            }
+            else
+            {
+              ApplySettings();
+            }
+
+            //this.Size = new Size(360, 400); 
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
             Drag_Drop_Hook_Eventhandlers(); 
@@ -59,7 +70,7 @@ namespace Notes
             main_richTextBox.ZoomFactor = noteSettings.ZoomFactor;
             this.TopMost = noteSettings.OnTop;
             this.Size= noteSettings.Size;
-            this.Location= noteSettings.Location;
+            this.Location = new Point(noteSettings.LocationX, noteSettings.LocationY);
         }
 
         private void Drag_Drop_Hook_Eventhandlers()
@@ -891,7 +902,8 @@ namespace Notes
                         newNoteForm.main_richTextBox.LoadFile(file);
                         newNoteForm.fileName = file;
                         newNoteForm.ReadSettingsFile(file);
-                        newNoteForm.ApplySettings();
+                        //newNoteForm.ApplySettings();
+                        //newNoteForm.applySettingsState = true;
                         newNoteForm.Show();
                         Application.Run();
                     }).Start();
@@ -942,6 +954,7 @@ namespace Notes
         private void zoom_richtextbox_trackBar_ValueChanged(object sender, EventArgs e)
         {
             main_richTextBox.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
+            noteSettings.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
         }
 
 
@@ -963,10 +976,12 @@ namespace Notes
             if (this.TopMost == false)
             {
                 this.TopMost = true;
+                noteSettings.OnTop = true;
             }
             else
             {
                 this.TopMost = false;
+                noteSettings.OnTop = false;
             }
         }
 
@@ -1038,7 +1053,7 @@ namespace Notes
 
 
 
-        private void CreateFileSettingsFile()
+        private void CreateSettingsFile()
         {
             //Directory.CreateDirectory(path); // If directory does not exist create directory Example if it is first time this App is used ther is not Notes folder in C://Notes
 
@@ -1080,8 +1095,6 @@ namespace Notes
                 string jsonString = File.ReadAllText(jsonFile);
                 NoteSettingsModel loadedSettings = JsonSerializer.Deserialize<NoteSettingsModel>(jsonString, options)!;
                  
-                // await using FileStream openStream = File.OpenRead(jsonFile);
-                //var loadedSettings = await JsonSerializer.DeserializeAsync<NoteSettingsModel>(openStream);
                 if (loadedSettings != null)
                 {
                     noteSettings = loadedSettings;
@@ -1095,7 +1108,7 @@ namespace Notes
         private void save_button_Click(object sender, EventArgs e)
         {
             SaveTextToFile();
-            CreateFileSettingsFile();
+            CreateSettingsFile();
         }
 
      
@@ -1103,8 +1116,9 @@ namespace Notes
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CreateFileNameAndSave();
-            CreateFileSettingsFile();
-
+            noteSettings.LocationX = this.Location.X;
+            noteSettings.LocationY = this.Location.Y;
+            CreateSettingsFile();
             // Close all forms if last form is closing
             if (Application.OpenForms.Count == 1)
             {
@@ -1395,5 +1409,12 @@ namespace Notes
                 main_richTextBox.BackColor = clrDialog.Color;
             } 
         }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            noteSettings.Size = this.Size;
+        }
+
+       
     }
 }
