@@ -1147,27 +1147,30 @@ namespace Notes
         }
 
 
-        // The path to the key where Windows looks for startup applications
-        RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-        bool runonStartup = true;
-
+      
 
 
 
 
         private void start_on_startup_button_Click(object sender, EventArgs e)
         {
-            if (runonStartup == true)
+            // The path to the key where Windows looks for startup applications
+            RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            //bool runonStartup = true;
+
+        
+
+            if (regKeyStartup.GetValue("Notes") == null) // Check if there is a key already, if there is not create it
             {
                 // Add the value in the registry so that the application runs at startup
                 regKeyStartup.SetValue("Notes", Application.ExecutablePath);
-                runonStartup = false;
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.start;
             }
-            else
+            else // If there is key and the button is pressed than delete the key
             {
                 // Remove the value from the registry so that the application doesn't start
                 regKeyStartup.DeleteValue("Notes", false);
-                runonStartup = true;
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
             }
         }
 
