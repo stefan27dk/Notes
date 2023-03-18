@@ -64,7 +64,6 @@
             this.print_button = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             this.SuspendLayout();
@@ -447,23 +446,12 @@
             // 
             this.printDialog1.UseEXDialog = true;
             // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
-            this.button1.Location = new System.Drawing.Point(288, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(209)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(335, 389);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.print_button);
             this.Controls.Add(this.words_count_label);
             this.Controls.Add(this.to_do_button);
@@ -546,6 +534,5 @@
         private Button print_button;
         private PrintDialog printDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private Button button1;
     }
 }

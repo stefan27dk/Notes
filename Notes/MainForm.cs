@@ -55,7 +55,8 @@ namespace Notes
             //this.Size = new Size(360, 400); 
             this.Text = fileName;
             main_richTextBox.AppendText(Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine);
-            Drag_Drop_Hook_Eventhandlers(); 
+            Drag_Drop_Hook_Eventhandlers();
+            ToggleStarupButtonIcon();
         }
 
         //private void main_richTextBox_Mouse_Weel(object sender, MouseEventArgs e)
@@ -1158,7 +1159,6 @@ namespace Notes
             RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             //bool runonStartup = true;
 
-        
 
             if (regKeyStartup.GetValue("Notes") == null) // Check if there is a key already, if there is not create it
             {
@@ -1172,9 +1172,23 @@ namespace Notes
                 regKeyStartup.DeleteValue("Notes", false);
                 start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
             }
+
         }
 
 
+        private void ToggleStarupButtonIcon()
+        {
+            RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            if (regKeyStartup.GetValue("Notes") == null) // Check if there is a key already, if there is not create it
+            {
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
+            }
+            else // If there is key and the button is pressed than delete the key
+            {
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.start;
+            }
+        }
 
 
         private void load_all_notes_button_Click(object sender, EventArgs e)
