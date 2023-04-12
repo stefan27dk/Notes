@@ -38,7 +38,8 @@ namespace Notes
         // Main Form Load -----------------------------------------------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(noteSettings.LocationX == 0 && noteSettings.LocationY == 0)
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            if (noteSettings.LocationX == 0 && noteSettings.LocationY == 0)
             {
                 int ScreenW = Screen.PrimaryScreen.Bounds.Width;
                 this.Location = new Point((ScreenW) - (this.Width), 0); // Default location for the note if location is empty = 0
@@ -1442,6 +1443,18 @@ namespace Notes
             noteSettings.Size = this.Size;
         }
 
-       
+        private void menu_button_Click(object sender, EventArgs e)
+        {
+            if(menu_panel.Visible == false)
+            {
+                menu_panel.Visible = true;
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y + menu_panel.Size.Height - 55);
+            }
+            else
+            {
+                menu_panel.Visible = false;
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y - menu_panel.Size.Height + 55);
+            }
+        }
     }
 }
