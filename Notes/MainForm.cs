@@ -1451,7 +1451,7 @@ namespace Notes
                 typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y + menu_panel.Size.Height - 23);
             }
             else
-            {
+            { 
                 menu_panel.Visible = false;
                 typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y - menu_panel.Size.Height + 23);
             }
