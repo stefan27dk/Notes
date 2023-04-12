@@ -996,8 +996,8 @@ namespace Notes
             new Thread(() =>
             {
                 newForm = new MainForm();
-                newForm.Location = new Point(x_loc + newForm.Width, y_loc + +newForm.Height);
                 newForm.Show();
+                newForm.Location = new Point(x_loc - this.Width, y_loc );
                 Application.Run();
             }).Start();
             
@@ -1448,12 +1448,12 @@ namespace Notes
             if(menu_panel.Visible == false)
             {
                 menu_panel.Visible = true;
-                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y + menu_panel.Size.Height - 55);
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y + menu_panel.Size.Height - 23);
             }
             else
             {
                 menu_panel.Visible = false;
-                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y - menu_panel.Size.Height + 55);
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y - menu_panel.Size.Height + 23);
             }
         }
     }
