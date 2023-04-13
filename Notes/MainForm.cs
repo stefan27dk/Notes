@@ -38,7 +38,7 @@ namespace Notes
         // Main Form Load -----------------------------------------------------------------------------------------------------------------
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(noteSettings.LocationX == 0 && noteSettings.LocationY == 0)
+            if (noteSettings.LocationX == 0 && noteSettings.LocationY == 0)
             {
                 int ScreenW = Screen.PrimaryScreen.Bounds.Width;
                 this.Location = new Point((ScreenW) - (this.Width), 0); // Default location for the note if location is empty = 0
@@ -995,8 +995,8 @@ namespace Notes
             new Thread(() =>
             {
                 newForm = new MainForm();
-                newForm.Location = new Point(x_loc + newForm.Width, y_loc + +newForm.Height);
                 newForm.Show();
+                newForm.Location = new Point(x_loc - this.Width, y_loc );
                 Application.Run();
             }).Start();
             
@@ -1442,6 +1442,232 @@ namespace Notes
             noteSettings.Size = this.Size;
         }
 
-       
+        private void menu_button_Click(object sender, EventArgs e)
+        {
+            if(menu_panel.Visible == false)
+            {
+                menu_panel.Visible = true;
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y + menu_panel.Size.Height - 23);
+                typer_holder_panel.Size = new Size(typer_holder_panel.Size.Width, typer_holder_panel.Size.Height - menu_panel.Size.Height + 23);
+            }
+            else
+            { 
+                menu_panel.Visible = false;
+                typer_holder_panel.Location = new Point(typer_holder_panel.Location.X, typer_holder_panel.Location.Y - menu_panel.Size.Height + 23);
+                typer_holder_panel.Size = new Size(typer_holder_panel.Size.Width, typer_holder_panel.Size.Height + menu_panel.Size.Height - 23);
+
+            }
+        }
+
+        private void onTop_button_Click_1(object sender, EventArgs e)
+        {
+            if (this.TopMost == false)
+            {
+                this.TopMost = true;
+                noteSettings.OnTop = true;
+            }
+            else
+            {
+                this.TopMost = false;
+                noteSettings.OnTop = false;
+            }
+        }
+
+        private void standart_view_button_Click_1(object sender, EventArgs e)
+        {
+            int ScreenW = Screen.PrimaryScreen.Bounds.Width;
+
+            this.Size = new Size(360, 400);
+            this.Location = new Point((ScreenW) - (this.Width), 0);
+        }
+
+        private void save_button_Click_1(object sender, EventArgs e)
+        {
+            SaveTextToFile();
+            CreateSettingsFile();
+        }
+
+        private void load_all_notes_button_Click_1(object sender, EventArgs e)
+        {
+            ReadAllNotes();
+        }
+
+        private void open_folder_button_Click_1(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", path);
+        }
+
+        private void close_all_forms_button_Click_1(object sender, EventArgs e)
+        {
+            CloseAllForms();
+        }
+
+        private void delete_note_button_Click_1(object sender, EventArgs e)
+        {
+            save = false;
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+                File.Delete(fileName.Substring(0, fileName.Length - 3) + "json");
+            }
+
+            if (Application.OpenForms.Count > 1)
+            {
+                this.Close();
+            }
+            else
+            {
+                CloseAllForms();
+            }
+        }
+
+        private void today_button_Click_1(object sender, EventArgs e)
+        {
+            string today = DateTime.Now.ToString(" dd-MM-yyyy  HH:mm:ss");
+            main_richTextBox.SelectedText = today;
+            main_richTextBox.Focus();
+        }
+
+        private void to_do_button_Click_1(object sender, EventArgs e)
+        {
+            int currentCaret = main_richTextBox.SelectionStart;
+            string toDoTxt = "\nTo Do:\n\n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n11.\n12.\n13.\n14.\n15.\n16.\n17.\n18.\n19.\n20.\n";
+            main_richTextBox.SelectedText = toDoTxt;
+            main_richTextBox.Focus();
+            main_richTextBox.SelectionStart = currentCaret + 11;
+        }
+
+        private void copy_all_button_Click_1(object sender, EventArgs e)
+        {
+            int currentCaret = main_richTextBox.SelectionStart;
+            main_richTextBox.SelectAll();
+            Clipboard.SetText(main_richTextBox.SelectedText);
+            main_richTextBox.DeselectAll();
+            main_richTextBox.Focus();
+            main_richTextBox.SelectionStart = currentCaret;
+        }
+
+        private void chgange_collor_button_Click_1(object sender, EventArgs e)
+        {
+            ColorDialog clrDialog = new ColorDialog();
+
+            //Show the colour dialog and check that user clicked ok
+            if (clrDialog.ShowDialog() == DialogResult.OK)
+            {
+                noteSettings.NoteBackgroundColor = clrDialog.Color;
+                main_richTextBox.BackColor = clrDialog.Color;
+            }
+        }
+
+        private void print_button_Click_1(object sender, EventArgs e)
+        {
+            if (printDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+        private void start_on_startup_button_Click_1(object sender, EventArgs e)
+        {
+            // The path to the key where Windows looks for startup applications
+            RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            //bool runonStartup = true;
+
+
+            if (regKeyStartup.GetValue("Notes") == null) // Check if there is a key already, if there is not create it
+            {
+                // Add the value in the registry so that the application runs at startup
+                regKeyStartup.SetValue("Notes", Application.ExecutablePath);
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.start;
+            }
+            else // If there is key and the button is pressed than delete the key
+            {
+                // Remove the value from the registry so that the application doesn't start
+                regKeyStartup.DeleteValue("Notes", false);
+                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
+            }
+        }
+
+        private void undo_button_Click_1(object sender, EventArgs e)
+        {
+            UndoTxt();
+        }
+
+        private void align_txt_left_button_Click_1(object sender, EventArgs e)
+        {
+            AlignTextLeft();
+        }
+
+        private void align_txt_middle_button_Click_1(object sender, EventArgs e)
+        {
+            AlignTextMiddle();
+        }
+
+        private void align_txt_right_button_Click_1(object sender, EventArgs e)
+        {
+            AlignTextRight();
+        }
+
+        private void bold_button_Click_1(object sender, EventArgs e)
+        {
+            ToggleBold();
+        }
+
+        private void Italic_button_Click_1(object sender, EventArgs e)
+        {
+            ToggleItalic();
+        }
+
+        private void crossout_button_Click(object sender, EventArgs e)
+        {
+            ToggleMiddleline();
+        }
+
+        private void underline_button_Click_1(object sender, EventArgs e)
+        {
+            ToggleUnderline();
+        }
+
+        private void endLine_button_Click_1(object sender, EventArgs e)
+        {
+            EndLine();
+            main_richTextBox.Focus();
+        }
+
+        private void margin_button_Click_1(object sender, EventArgs e)
+        {
+            main_richTextBox.RightMargin = main_richTextBox.Size.Width -35;
+        }
+
+        private void wrapText_button_Click_1(object sender, EventArgs e)
+        {
+            ToggleWordWrap();
+        }
+
+        private void form_opacity_trackBar_ValueChanged_1(object sender, EventArgs e)
+        {
+            this.Opacity = form_opacity_trackBar.Value * 0.01;  // Adjust Form Opacity
+            noteSettings.Transparency = form_opacity_trackBar.Value * 0.01; // Add to settings object // Later on is saved together with the file
+        }
+
+        private void zoom_richtextbox_trackBar_ValueChanged_1(object sender, EventArgs e)
+        {
+            main_richTextBox.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
+            noteSettings.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
+        }
+
+        private void scroll_to_bottom_button_Click_1(object sender, EventArgs e)
+        {
+            main_richTextBox.SelectionStart = main_richTextBox.Text.Length;
+            main_richTextBox.ScrollToCaret();
+            main_richTextBox.Focus();
+        }
+
+        private void scroll_to_top_button_Click_1(object sender, EventArgs e)
+        {
+            main_richTextBox.SelectionStart = 0;
+            main_richTextBox.ScrollToCaret();
+            main_richTextBox.Focus();
+        }
     }
 }
