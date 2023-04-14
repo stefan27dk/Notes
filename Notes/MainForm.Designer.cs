@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.Button button1;
             this.new_note_button = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
@@ -67,6 +68,7 @@
             this.endLine_button = new System.Windows.Forms.Button();
             this.wrapText_button = new System.Windows.Forms.Button();
             this.margin_button = new System.Windows.Forms.Button();
+            button1 = new System.Windows.Forms.Button();
             this.typer_holder_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
@@ -209,12 +211,12 @@
             this.main_richTextBox.EnableAutoDragDrop = true;
             this.main_richTextBox.HideSelection = false;
             this.main_richTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.main_richTextBox.Location = new System.Drawing.Point(-1, 24);
+            this.main_richTextBox.Location = new System.Drawing.Point(-1, 25);
             this.main_richTextBox.MaxLength = 999999999;
             this.main_richTextBox.Name = "main_richTextBox";
             this.main_richTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.main_richTextBox.ShowSelectionMargin = true;
-            this.main_richTextBox.Size = new System.Drawing.Size(331, 259);
+            this.main_richTextBox.Size = new System.Drawing.Size(331, 258);
             this.main_richTextBox.TabIndex = 32;
             this.main_richTextBox.Text = "";
             // 
@@ -300,7 +302,7 @@
             // 
             this.delete_note_button.BackgroundImage = global::Notes.Properties.Resources.delete;
             this.delete_note_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.delete_note_button.Location = new System.Drawing.Point(257, 0);
+            this.delete_note_button.Location = new System.Drawing.Point(250, 0);
             this.delete_note_button.Name = "delete_note_button";
             this.delete_note_button.Size = new System.Drawing.Size(25, 25);
             this.delete_note_button.TabIndex = 56;
@@ -496,12 +498,23 @@
             this.margin_button.UseVisualStyleBackColor = true;
             this.margin_button.Click += new System.EventHandler(this.margin_button_Click_1);
             // 
+            // button1
+            // 
+            button1.BackgroundImage = global::Notes.Properties.Resources.info1;
+            button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            button1.Location = new System.Drawing.Point(275, 0);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(25, 25);
+            button1.TabIndex = 62;
+            button1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(209)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(334, 361);
+            this.Controls.Add(button1);
             this.Controls.Add(this.new_note_button);
             this.Controls.Add(this.today_button);
             this.Controls.Add(this.to_do_button);

@@ -1502,7 +1502,8 @@ namespace Notes
             CloseAllForms();
         }
 
-        private void delete_note_button_Click_1(object sender, EventArgs e)
+
+        private void DeleteNote()
         {
             save = false;
             if (File.Exists(fileName))
@@ -1519,6 +1520,18 @@ namespace Notes
             {
                 CloseAllForms();
             }
+        }
+
+
+
+        private void delete_note_button_Click_1(object sender, EventArgs e)
+        { 
+            DialogResult dialogResult = MessageBox.Show($"DELETE - {this.Text}", $"DELETE NOTE !", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                // DELETE Note
+                DeleteNote();
+            } 
         }
 
         private void today_button_Click_1(object sender, EventArgs e)
