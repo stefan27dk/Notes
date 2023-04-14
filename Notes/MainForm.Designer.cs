@@ -233,8 +233,10 @@
             this.main_richTextBox.Size = new System.Drawing.Size(331, 258);
             this.main_richTextBox.TabIndex = 32;
             this.main_richTextBox.Text = "";
+            this.main_richTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.main_richTextBox_LinkClicked);
             this.main_richTextBox.TextChanged += new System.EventHandler(this.main_richTextBox_TextChanged);
             this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
+            this.main_richTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.main_richTextBox_KeyPress);
             this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp);
             // 
             // chgange_collor_button

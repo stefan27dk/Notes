@@ -1221,8 +1221,7 @@ namespace Notes
             CloseAllForms(); 
         }
 
-
-        private void delete_note_button_Click(object sender, EventArgs e)
+        private void DeleteNote()
         {
             save = false;
             if (File.Exists(fileName))
@@ -1238,6 +1237,17 @@ namespace Notes
             else
             {
                 CloseAllForms();
+            }
+        }
+
+
+        private void delete_note_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show($"DELETE - {this.Text}", $"DELETE NOTE !", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                // DELETE Note
+                DeleteNote();
             }
         }
 
@@ -1379,26 +1389,26 @@ namespace Notes
 
  
 
-        private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
-        {
-            char[] param = { '\n' };
+        //private void printDocument1_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        //{
+        //    char[] param = { '\n' };
 
-            if (printDialog1.PrinterSettings.PrintRange == PrintRange.Selection)
-            {
-                lines = main_richTextBox.SelectedText.Split(param);
-            }
-            else
-            {
-                lines = main_richTextBox.Text.Split(param);
-            }
+        //    if (printDialog1.PrinterSettings.PrintRange == PrintRange.Selection)
+        //    {
+        //        lines = main_richTextBox.SelectedText.Split(param);
+        //    }
+        //    else
+        //    {
+        //        lines = main_richTextBox.Text.Split(param);
+        //    }
 
-            int i = 0;
-            char[] trimParam = { '\r' };
-            foreach (string s in lines)
-            {
-                lines[i++] = s.TrimEnd(trimParam);
-            }
-        }
+        //    int i = 0;
+        //    char[] trimParam = { '\r' };
+        //    foreach (string s in lines)
+        //    {
+        //        lines[i++] = s.TrimEnd(trimParam);
+        //    }
+        //}
 
         private int linesPrinted;
         private string[] lines;
@@ -1481,126 +1491,8 @@ namespace Notes
             this.Location = new Point((ScreenW) - (this.Width), 0);
         }
 
-        private void save_button_Click_1(object sender, EventArgs e)
-        {
-            SaveTextToFile();
-            CreateSettingsFile();
-        }
-
-        private void load_all_notes_button_Click_1(object sender, EventArgs e)
-        {
-            ReadAllNotes();
-        }
-
-        private void open_folder_button_Click_1(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("explorer.exe", path);
-        }
-
-        private void close_all_forms_button_Click_1(object sender, EventArgs e)
-        {
-            CloseAllForms();
-        }
-
-
-        private void DeleteNote()
-        {
-            save = false;
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-                File.Delete(fileName.Substring(0, fileName.Length - 3) + "json");
-            }
-
-            if (Application.OpenForms.Count > 1)
-            {
-                this.Close();
-            }
-            else
-            {
-                CloseAllForms();
-            }
-        }
-
-
-
-        private void delete_note_button_Click_1(object sender, EventArgs e)
-        { 
-            DialogResult dialogResult = MessageBox.Show($"DELETE - {this.Text}", $"DELETE NOTE !", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialogResult == DialogResult.Yes)
-            {
-                // DELETE Note
-                DeleteNote();
-            } 
-        }
-
-        private void today_button_Click_1(object sender, EventArgs e)
-        {
-            string today = DateTime.Now.ToString(" dd-MM-yyyy  HH:mm:ss");
-            main_richTextBox.SelectedText = today;
-            main_richTextBox.Focus();
-        }
-
-        private void to_do_button_Click_1(object sender, EventArgs e)
-        {
-            int currentCaret = main_richTextBox.SelectionStart;
-            string toDoTxt = "\nTo Do:\n\n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.\n9.\n10.\n11.\n12.\n13.\n14.\n15.\n16.\n17.\n18.\n19.\n20.\n";
-            main_richTextBox.SelectedText = toDoTxt;
-            main_richTextBox.Focus();
-            main_richTextBox.SelectionStart = currentCaret + 11;
-        }
-
-        private void copy_all_button_Click_1(object sender, EventArgs e)
-        {
-            int currentCaret = main_richTextBox.SelectionStart;
-            main_richTextBox.SelectAll();
-            Clipboard.SetText(main_richTextBox.SelectedText);
-            main_richTextBox.DeselectAll();
-            main_richTextBox.Focus();
-            main_richTextBox.SelectionStart = currentCaret;
-        }
-
-        private void chgange_collor_button_Click_1(object sender, EventArgs e)
-        {
-            ColorDialog clrDialog = new ColorDialog();
-
-            //Show the colour dialog and check that user clicked ok
-            if (clrDialog.ShowDialog() == DialogResult.OK)
-            {
-                noteSettings.NoteBackgroundColor = clrDialog.Color;
-                main_richTextBox.BackColor = clrDialog.Color;
-            }
-        }
-
-        private void print_button_Click_1(object sender, EventArgs e)
-        {
-            if (printDialog1.ShowDialog() == DialogResult.OK)
-            {
-                printDocument1.Print();
-            }
-        }
-
-        private void start_on_startup_button_Click_1(object sender, EventArgs e)
-        {
-            // The path to the key where Windows looks for startup applications
-            RegistryKey regKeyStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            //bool runonStartup = true;
-
-
-            if (regKeyStartup.GetValue("Notes") == null) // Check if there is a key already, if there is not create it
-            {
-                // Add the value in the registry so that the application runs at startup
-                regKeyStartup.SetValue("Notes", Application.ExecutablePath);
-                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.start;
-            }
-            else // If there is key and the button is pressed than delete the key
-            {
-                // Remove the value from the registry so that the application doesn't start
-                regKeyStartup.DeleteValue("Notes", false);
-                start_on_startup_button.BackgroundImage = global::Notes.Properties.Resources.play_button_red;
-            }
-        }
-
+        
+         
         
 
         private void crossout_button_Click(object sender, EventArgs e)
@@ -1621,6 +1513,5 @@ namespace Notes
                 info_panel.Visible = false;
             }
         }
-
     }
 }
