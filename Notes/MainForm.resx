@@ -57,6 +57,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="info_button.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
   <metadata name="printDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -139,9 +142,62 @@
         OEHDAvIqI0/SPqKppQgBDjbGIwqgb0snA71Zt/YJDCzqQy58Oy4AAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="button1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
+  <data name="info_textBox.Text" xml:space="preserve">
+    <value>
+Shortcuts:
+
+-------------------------------------------------------
+1. Italic = CTRL + I
+2. Underline = CTRL + U
+3. Bold = CTRL + B
+4. Strikeout =  CTRL + K
+--------------------------------------------------------
+5. Scroll to Caret = CTRL + ALT 
+6. Align Text Left = ALT + LEFT ARROW
+7. Align Text Right = ALT + RIGHT ARROW
+8. Align Text Middle = ALT + ARROW UP
+
+--------------------------------------------------------
+9. Select Line = CTRL + Q
+10. Dublicate Line = CTRL + D
+11. Go to the End of the Line = CTRL + W
+12. Go to the Start of the Line = CTRL + G
+
+----------------------------------------------------------
+13. Line Number Run = CTRL + L
+14. ADD New Line Before the current = CTRL + ENTER
+15. ADD New Line Before the current and move the cursor = CTRL + SHIFT + ENTER
+
+-------------------------------------------------------------
+16. Undo = CTRL + Z
+17. Redo = CTRL + Y     "Not working properly!!!!"
+18. DELETE Curent Line = CTRL + X
+19. Paste = CTRL + V
+20. Copy = CTRL + C
+
+-------------------------------------------------------------
+This is prototype an there are many bugs, especialy in the Undo Redo.
+
+--------------------------------------------------------------
+
+What can this App:
+
+1. Paste an Image and save it
+2. Have the notes as .rtf files that can be edited with Word or WordPad
+3. Having the notes as single files makes it easy to send them or copy to another Storage Disk 
+4.  The Function Allways on top makes the current note be allways on top of all apps
+5. Transparency function - makes it easy to see trought the note and eventually read what is behind the note and write it in the note
+6.  Words Count - Counts the words
+7. Lines Count - Counts the lines
+8. The buttons at the top and the bottom of the scrollbar makes it easier to navigate to top or bottom of the text
+9. The button COPY - Copies all the text
+10. The folder button opens where the notes are stored
+
+Could be better but there is not enought time.
+
+
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA

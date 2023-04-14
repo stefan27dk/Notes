@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button info_button;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.Button button1;
             this.new_note_button = new System.Windows.Forms.Button();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
@@ -68,12 +68,26 @@
             this.endLine_button = new System.Windows.Forms.Button();
             this.wrapText_button = new System.Windows.Forms.Button();
             this.margin_button = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
+            this.info_panel = new System.Windows.Forms.Panel();
+            this.info_textBox = new System.Windows.Forms.TextBox();
+            info_button = new System.Windows.Forms.Button();
             this.typer_holder_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).BeginInit();
             this.menu_panel.SuspendLayout();
+            this.info_panel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // info_button
+            // 
+            info_button.BackgroundImage = global::Notes.Properties.Resources.info1;
+            info_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            info_button.Location = new System.Drawing.Point(275, 0);
+            info_button.Name = "info_button";
+            info_button.Size = new System.Drawing.Size(25, 25);
+            info_button.TabIndex = 62;
+            info_button.UseVisualStyleBackColor = true;
+            info_button.Click += new System.EventHandler(this.info_button_Click);
             // 
             // new_note_button
             // 
@@ -137,9 +151,9 @@
             this.scroll_to_bottom_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.scroll_to_bottom_button.BackgroundImage = global::Notes.Properties.Resources.arrow_down;
             this.scroll_to_bottom_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.scroll_to_bottom_button.Location = new System.Drawing.Point(306, 281);
+            this.scroll_to_bottom_button.Location = new System.Drawing.Point(309, 283);
             this.scroll_to_bottom_button.Name = "scroll_to_bottom_button";
-            this.scroll_to_bottom_button.Size = new System.Drawing.Size(25, 25);
+            this.scroll_to_bottom_button.Size = new System.Drawing.Size(20, 20);
             this.scroll_to_bottom_button.TabIndex = 38;
             this.scroll_to_bottom_button.UseVisualStyleBackColor = true;
             this.scroll_to_bottom_button.Click += new System.EventHandler(this.scroll_to_bottom_button_Click_1);
@@ -149,9 +163,9 @@
             this.scroll_to_top_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scroll_to_top_button.BackgroundImage = global::Notes.Properties.Resources.arrow_up;
             this.scroll_to_top_button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.scroll_to_top_button.Location = new System.Drawing.Point(306, -1);
+            this.scroll_to_top_button.Location = new System.Drawing.Point(309, 5);
             this.scroll_to_top_button.Name = "scroll_to_top_button";
-            this.scroll_to_top_button.Size = new System.Drawing.Size(25, 25);
+            this.scroll_to_top_button.Size = new System.Drawing.Size(20, 20);
             this.scroll_to_top_button.TabIndex = 37;
             this.scroll_to_top_button.UseVisualStyleBackColor = true;
             this.scroll_to_top_button.Click += new System.EventHandler(this.scroll_to_top_button_Click_1);
@@ -498,15 +512,26 @@
             this.margin_button.UseVisualStyleBackColor = true;
             this.margin_button.Click += new System.EventHandler(this.margin_button_Click_1);
             // 
-            // button1
+            // info_panel
             // 
-            button1.BackgroundImage = global::Notes.Properties.Resources.info1;
-            button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            button1.Location = new System.Drawing.Point(275, 0);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(25, 25);
-            button1.TabIndex = 62;
-            button1.UseVisualStyleBackColor = true;
+            this.info_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.info_panel.Controls.Add(this.info_textBox);
+            this.info_panel.Location = new System.Drawing.Point(2, 30);
+            this.info_panel.Name = "info_panel";
+            this.info_panel.Size = new System.Drawing.Size(311, 283);
+            this.info_panel.TabIndex = 40;
+            this.info_panel.Visible = false;
+            // 
+            // info_textBox
+            // 
+            this.info_textBox.Location = new System.Drawing.Point(10, 20);
+            this.info_textBox.Multiline = true;
+            this.info_textBox.Name = "info_textBox";
+            this.info_textBox.ReadOnly = true;
+            this.info_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.info_textBox.Size = new System.Drawing.Size(288, 246);
+            this.info_textBox.TabIndex = 0;
+            this.info_textBox.Text = resources.GetString("info_textBox.Text");
             // 
             // MainForm
             // 
@@ -514,8 +539,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(209)))), ((int)(((byte)(153)))));
             this.ClientSize = new System.Drawing.Size(334, 361);
-            this.Controls.Add(button1);
             this.Controls.Add(this.new_note_button);
+            this.Controls.Add(this.info_panel);
+            this.Controls.Add(info_button);
             this.Controls.Add(this.today_button);
             this.Controls.Add(this.to_do_button);
             this.Controls.Add(this.copy_all_button);
@@ -544,6 +570,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.form_opacity_trackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoom_richtextbox_trackBar)).EndInit();
             this.menu_panel.ResumeLayout(false);
+            this.info_panel.ResumeLayout(false);
+            this.info_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -587,5 +615,7 @@
         private Button endLine_button;
         private Button wrapText_button;
         private Button margin_button;
+        private Panel info_panel;
+        private TextBox info_textBox;
     }
 }

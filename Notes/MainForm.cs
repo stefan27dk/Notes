@@ -1682,5 +1682,24 @@ namespace Notes
             main_richTextBox.ScrollToCaret();
             main_richTextBox.Focus();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void info_button_Click(object sender, EventArgs e)
+        {
+            if (info_panel.Visible == false)
+            {
+                info_panel.Visible = true;
+            }
+            else
+            {
+                info_panel.Visible = false;
+            }
+        }
+
+       
     }
 }
