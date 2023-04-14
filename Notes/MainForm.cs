@@ -1709,5 +1709,14 @@ namespace Notes
         {
             ShowCharIndexAndLine();
         }
+
+        private void main_richTextBox_TextChanged_1(object sender, EventArgs e)
+        {
+            MatchCollection wordCount = Regex.Matches(main_richTextBox.Text, @"[\W]+");
+            words_count_label.Text = "Words:" + wordCount.Count.ToString();
+
+            //int wordsCount = main_richTextBox.Text.Split(' ').Length;
+            //words_count_label.Text = "Words:" + wordsCount.ToString();
+        }
     }
 }
