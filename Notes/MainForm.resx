@@ -146,39 +146,39 @@
     <value>
 Shortcuts:
 
--------------------------------------------------------
+-------------------------------------
 1. Italic = CTRL + I
 2. Underline = CTRL + U
 3. Bold = CTRL + B
 4. Strikeout =  CTRL + K
---------------------------------------------------------
+--------------------------------------
 5. Scroll to Caret = CTRL + ALT 
 6. Align Text Left = ALT + LEFT ARROW
 7. Align Text Right = ALT + RIGHT ARROW
 8. Align Text Middle = ALT + ARROW UP
 
---------------------------------------------------------
+--------------------------------------
 9. Select Line = CTRL + Q
 10. Dublicate Line = CTRL + D
 11. Go to the End of the Line = CTRL + W
 12. Go to the Start of the Line = CTRL + G
 
-----------------------------------------------------------
+--------------------------------------
 13. Line Number Run = CTRL + L
 14. ADD New Line Before the current = CTRL + ENTER
 15. ADD New Line Before the current and move the cursor = CTRL + SHIFT + ENTER
 
--------------------------------------------------------------
+---------------------------------------
 16. Undo = CTRL + Z
 17. Redo = CTRL + Y     "Not working properly!!!!"
 18. DELETE Curent Line = CTRL + X
 19. Paste = CTRL + V
 20. Copy = CTRL + C
 
--------------------------------------------------------------
+---------------------------------------
 This is prototype an there are many bugs, especialy in the Undo Redo.
 
---------------------------------------------------------------
+---------------------------------------
 
 What can this App:
 
@@ -194,6 +194,8 @@ What can this App:
 10. The folder button opens where the notes are stored
 
 Could be better but there is not enought time.
+
+"ВИВИ БЕЛЕЖКИ" ЗА ВИВИ !!!
 
 
 </value>
