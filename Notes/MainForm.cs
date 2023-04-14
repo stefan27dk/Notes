@@ -1700,6 +1700,14 @@ namespace Notes
             }
         }
 
-       
+        private void main_richTextBox_LinkClicked_1(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start("explorer", e.LinkText);
+        }
+
+        private void main_richTextBox_MouseUp_1(object sender, MouseEventArgs e)
+        {
+            ShowCharIndexAndLine();
+        }
     }
 }

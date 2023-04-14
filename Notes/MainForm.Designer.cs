@@ -233,6 +233,7 @@
             this.main_richTextBox.Size = new System.Drawing.Size(331, 258);
             this.main_richTextBox.TabIndex = 32;
             this.main_richTextBox.Text = "";
+            this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp_1);
             // 
             // chgange_collor_button
             // 
