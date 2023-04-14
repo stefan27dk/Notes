@@ -1718,5 +1718,10 @@ namespace Notes
             //int wordsCount = main_richTextBox.Text.Split(' ').Length;
             //words_count_label.Text = "Words:" + wordsCount.ToString();
         }
+
+        private void main_richTextBox_KeyDown_1(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

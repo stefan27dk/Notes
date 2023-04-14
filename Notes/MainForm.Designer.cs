@@ -156,7 +156,7 @@
             this.scroll_to_bottom_button.Size = new System.Drawing.Size(20, 20);
             this.scroll_to_bottom_button.TabIndex = 38;
             this.scroll_to_bottom_button.UseVisualStyleBackColor = true;
-            this.scroll_to_bottom_button.Click += new System.EventHandler(this.scroll_to_bottom_button_Click_1);
+            this.scroll_to_bottom_button.Click += new System.EventHandler(this.scroll_to_bottom_button_Click);
             // 
             // scroll_to_top_button
             // 
@@ -168,7 +168,7 @@
             this.scroll_to_top_button.Size = new System.Drawing.Size(20, 20);
             this.scroll_to_top_button.TabIndex = 37;
             this.scroll_to_top_button.UseVisualStyleBackColor = true;
-            this.scroll_to_top_button.Click += new System.EventHandler(this.scroll_to_top_button_Click_1);
+            this.scroll_to_top_button.Click += new System.EventHandler(this.scroll_to_top_button_Click);
             // 
             // line_label
             // 
@@ -200,7 +200,7 @@
             this.form_opacity_trackBar.Size = new System.Drawing.Size(104, 45);
             this.form_opacity_trackBar.TabIndex = 34;
             this.form_opacity_trackBar.Value = 100;
-            this.form_opacity_trackBar.ValueChanged += new System.EventHandler(this.form_opacity_trackBar_ValueChanged_1);
+            this.form_opacity_trackBar.ValueChanged += new System.EventHandler(this.form_opacity_trackBar_ValueChanged);
             // 
             // zoom_richtextbox_trackBar
             // 
@@ -214,7 +214,7 @@
             this.zoom_richtextbox_trackBar.TabIndex = 33;
             this.zoom_richtextbox_trackBar.TickFrequency = 20;
             this.zoom_richtextbox_trackBar.Value = 1;
-            this.zoom_richtextbox_trackBar.ValueChanged += new System.EventHandler(this.zoom_richtextbox_trackBar_ValueChanged_1);
+            this.zoom_richtextbox_trackBar.ValueChanged += new System.EventHandler(this.zoom_richtextbox_trackBar_ValueChanged);
             // 
             // main_richTextBox
             // 
@@ -233,8 +233,9 @@
             this.main_richTextBox.Size = new System.Drawing.Size(331, 258);
             this.main_richTextBox.TabIndex = 32;
             this.main_richTextBox.Text = "";
-            this.main_richTextBox.TextChanged += new System.EventHandler(this.main_richTextBox_TextChanged_1);
-            this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp_1);
+            this.main_richTextBox.TextChanged += new System.EventHandler(this.main_richTextBox_TextChanged);
+            this.main_richTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_richTextBox_KeyDown);
+            this.main_richTextBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.main_richTextBox_MouseUp);
             // 
             // chgange_collor_button
             // 
@@ -245,7 +246,7 @@
             this.chgange_collor_button.Size = new System.Drawing.Size(25, 25);
             this.chgange_collor_button.TabIndex = 50;
             this.chgange_collor_button.UseVisualStyleBackColor = true;
-            this.chgange_collor_button.Click += new System.EventHandler(this.chgange_collor_button_Click_1);
+            this.chgange_collor_button.Click += new System.EventHandler(this.chgange_collor_button_Click);
             // 
             // print_button
             // 
@@ -256,7 +257,7 @@
             this.print_button.Size = new System.Drawing.Size(25, 25);
             this.print_button.TabIndex = 60;
             this.print_button.UseVisualStyleBackColor = true;
-            this.print_button.Click += new System.EventHandler(this.print_button_Click_1);
+            this.print_button.Click += new System.EventHandler(this.print_button_Click);
             // 
             // standart_view_button
             // 
@@ -268,7 +269,7 @@
             this.standart_view_button.Size = new System.Drawing.Size(25, 25);
             this.standart_view_button.TabIndex = 48;
             this.standart_view_button.UseVisualStyleBackColor = true;
-            this.standart_view_button.Click += new System.EventHandler(this.standart_view_button_Click_1);
+            this.standart_view_button.Click += new System.EventHandler(this.standart_view_button_Click);
             // 
             // start_on_startup_button
             // 
@@ -279,7 +280,7 @@
             this.start_on_startup_button.Size = new System.Drawing.Size(25, 25);
             this.start_on_startup_button.TabIndex = 49;
             this.start_on_startup_button.UseVisualStyleBackColor = true;
-            this.start_on_startup_button.Click += new System.EventHandler(this.start_on_startup_button_Click_1);
+            this.start_on_startup_button.Click += new System.EventHandler(this.start_on_startup_button_Click);
             // 
             // to_do_button
             // 
@@ -290,7 +291,7 @@
             this.to_do_button.Size = new System.Drawing.Size(25, 25);
             this.to_do_button.TabIndex = 59;
             this.to_do_button.UseVisualStyleBackColor = true;
-            this.to_do_button.Click += new System.EventHandler(this.to_do_button_Click_1);
+            this.to_do_button.Click += new System.EventHandler(this.to_do_button_Click);
             // 
             // today_button
             // 
@@ -301,7 +302,7 @@
             this.today_button.Size = new System.Drawing.Size(25, 25);
             this.today_button.TabIndex = 58;
             this.today_button.UseVisualStyleBackColor = true;
-            this.today_button.Click += new System.EventHandler(this.today_button_Click_1);
+            this.today_button.Click += new System.EventHandler(this.today_button_Click);
             // 
             // copy_all_button
             // 
@@ -312,7 +313,7 @@
             this.copy_all_button.Size = new System.Drawing.Size(25, 25);
             this.copy_all_button.TabIndex = 57;
             this.copy_all_button.UseVisualStyleBackColor = true;
-            this.copy_all_button.Click += new System.EventHandler(this.copy_all_button_Click_1);
+            this.copy_all_button.Click += new System.EventHandler(this.copy_all_button_Click);
             // 
             // delete_note_button
             // 
@@ -323,7 +324,7 @@
             this.delete_note_button.Size = new System.Drawing.Size(25, 25);
             this.delete_note_button.TabIndex = 56;
             this.delete_note_button.UseVisualStyleBackColor = true;
-            this.delete_note_button.Click += new System.EventHandler(this.delete_note_button_Click_1);
+            this.delete_note_button.Click += new System.EventHandler(this.delete_note_button_Click);
             // 
             // close_all_forms_button
             // 
@@ -334,7 +335,7 @@
             this.close_all_forms_button.Size = new System.Drawing.Size(25, 25);
             this.close_all_forms_button.TabIndex = 55;
             this.close_all_forms_button.UseVisualStyleBackColor = true;
-            this.close_all_forms_button.Click += new System.EventHandler(this.close_all_forms_button_Click_1);
+            this.close_all_forms_button.Click += new System.EventHandler(this.close_all_forms_button_Click);
             // 
             // open_folder_button
             // 
@@ -345,7 +346,7 @@
             this.open_folder_button.Size = new System.Drawing.Size(25, 25);
             this.open_folder_button.TabIndex = 54;
             this.open_folder_button.UseVisualStyleBackColor = true;
-            this.open_folder_button.Click += new System.EventHandler(this.open_folder_button_Click_1);
+            this.open_folder_button.Click += new System.EventHandler(this.open_folder_button_Click);
             // 
             // onTop_button
             // 
@@ -356,7 +357,7 @@
             this.onTop_button.Size = new System.Drawing.Size(25, 25);
             this.onTop_button.TabIndex = 51;
             this.onTop_button.UseVisualStyleBackColor = true;
-            this.onTop_button.Click += new System.EventHandler(this.onTop_button_Click_1);
+            this.onTop_button.Click += new System.EventHandler(this.onTop_button_Click);
             // 
             // save_button
             // 
@@ -367,7 +368,7 @@
             this.save_button.Size = new System.Drawing.Size(25, 25);
             this.save_button.TabIndex = 52;
             this.save_button.UseVisualStyleBackColor = true;
-            this.save_button.Click += new System.EventHandler(this.save_button_Click_1);
+            this.save_button.Click += new System.EventHandler(this.save_button_Click);
             // 
             // load_all_notes_button
             // 
@@ -378,7 +379,7 @@
             this.load_all_notes_button.Size = new System.Drawing.Size(25, 25);
             this.load_all_notes_button.TabIndex = 53;
             this.load_all_notes_button.UseVisualStyleBackColor = true;
-            this.load_all_notes_button.Click += new System.EventHandler(this.load_all_notes_button_Click_1);
+            this.load_all_notes_button.Click += new System.EventHandler(this.load_all_notes_button_Click);
             // 
             // menu_panel
             // 
@@ -408,7 +409,7 @@
             this.align_txt_right_button.Size = new System.Drawing.Size(25, 25);
             this.align_txt_right_button.TabIndex = 5;
             this.align_txt_right_button.UseVisualStyleBackColor = true;
-            this.align_txt_right_button.Click += new System.EventHandler(this.align_txt_right_button_Click_1);
+            this.align_txt_right_button.Click += new System.EventHandler(this.align_txt_right_button_Click);
             // 
             // align_txt_middle_button
             // 
@@ -419,7 +420,7 @@
             this.align_txt_middle_button.Size = new System.Drawing.Size(25, 25);
             this.align_txt_middle_button.TabIndex = 6;
             this.align_txt_middle_button.UseVisualStyleBackColor = true;
-            this.align_txt_middle_button.Click += new System.EventHandler(this.align_txt_middle_button_Click_1);
+            this.align_txt_middle_button.Click += new System.EventHandler(this.align_txt_middle_button_Click);
             // 
             // align_txt_left_button
             // 
@@ -430,7 +431,7 @@
             this.align_txt_left_button.Size = new System.Drawing.Size(25, 25);
             this.align_txt_left_button.TabIndex = 7;
             this.align_txt_left_button.UseVisualStyleBackColor = true;
-            this.align_txt_left_button.Click += new System.EventHandler(this.align_txt_left_button_Click_1);
+            this.align_txt_left_button.Click += new System.EventHandler(this.align_txt_left_button_Click);
             // 
             // bold_button
             // 
@@ -440,7 +441,7 @@
             this.bold_button.TabIndex = 8;
             this.bold_button.Text = "B";
             this.bold_button.UseVisualStyleBackColor = true;
-            this.bold_button.Click += new System.EventHandler(this.bold_button_Click_1);
+            this.bold_button.Click += new System.EventHandler(this.bold_button_Click);
             // 
             // Italic_button
             // 
@@ -450,7 +451,7 @@
             this.Italic_button.TabIndex = 9;
             this.Italic_button.Text = "I";
             this.Italic_button.UseVisualStyleBackColor = true;
-            this.Italic_button.Click += new System.EventHandler(this.Italic_button_Click_1);
+            this.Italic_button.Click += new System.EventHandler(this.Italic_button_Click);
             // 
             // crossout_button
             // 
@@ -471,7 +472,7 @@
             this.underline_button.TabIndex = 11;
             this.underline_button.Text = "U";
             this.underline_button.UseVisualStyleBackColor = true;
-            this.underline_button.Click += new System.EventHandler(this.underline_button_Click_1);
+            this.underline_button.Click += new System.EventHandler(this.underline_button_Click);
             // 
             // undo_button
             // 
@@ -482,7 +483,7 @@
             this.undo_button.Size = new System.Drawing.Size(25, 25);
             this.undo_button.TabIndex = 23;
             this.undo_button.UseVisualStyleBackColor = true;
-            this.undo_button.Click += new System.EventHandler(this.undo_button_Click_1);
+            this.undo_button.Click += new System.EventHandler(this.undo_button_Click);
             // 
             // endLine_button
             // 
@@ -492,7 +493,7 @@
             this.endLine_button.TabIndex = 12;
             this.endLine_button.Text = "→";
             this.endLine_button.UseVisualStyleBackColor = true;
-            this.endLine_button.Click += new System.EventHandler(this.endLine_button_Click_1);
+            this.endLine_button.Click += new System.EventHandler(this.endLine_button_Click);
             // 
             // wrapText_button
             // 
@@ -502,7 +503,7 @@
             this.wrapText_button.TabIndex = 13;
             this.wrapText_button.Text = "W";
             this.wrapText_button.UseVisualStyleBackColor = true;
-            this.wrapText_button.Click += new System.EventHandler(this.wrapText_button_Click_1);
+            this.wrapText_button.Click += new System.EventHandler(this.wrapText_button_Click);
             // 
             // margin_button
             // 
@@ -512,7 +513,7 @@
             this.margin_button.TabIndex = 14;
             this.margin_button.Text = "M";
             this.margin_button.UseVisualStyleBackColor = true;
-            this.margin_button.Click += new System.EventHandler(this.margin_button_Click_1);
+            this.margin_button.Click += new System.EventHandler(this.margin_button_Click);
             // 
             // info_panel
             // 
