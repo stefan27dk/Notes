@@ -1601,92 +1601,14 @@ namespace Notes
             }
         }
 
-        private void undo_button_Click_1(object sender, EventArgs e)
-        {
-            UndoTxt();
-        }
-
-        private void align_txt_left_button_Click_1(object sender, EventArgs e)
-        {
-            AlignTextLeft();
-        }
-
-        private void align_txt_middle_button_Click_1(object sender, EventArgs e)
-        {
-            AlignTextMiddle();
-        }
-
-        private void align_txt_right_button_Click_1(object sender, EventArgs e)
-        {
-            AlignTextRight();
-        }
-
-        private void bold_button_Click_1(object sender, EventArgs e)
-        {
-            ToggleBold();
-        }
-
-        private void Italic_button_Click_1(object sender, EventArgs e)
-        {
-            ToggleItalic();
-        }
+        
 
         private void crossout_button_Click(object sender, EventArgs e)
         {
             ToggleMiddleline();
         }
 
-        private void underline_button_Click_1(object sender, EventArgs e)
-        {
-            ToggleUnderline();
-        }
-
-        private void endLine_button_Click_1(object sender, EventArgs e)
-        {
-            EndLine();
-            main_richTextBox.Focus();
-        }
-
-        private void margin_button_Click_1(object sender, EventArgs e)
-        {
-            main_richTextBox.RightMargin = main_richTextBox.Size.Width -35;
-        }
-
-        private void wrapText_button_Click_1(object sender, EventArgs e)
-        {
-            ToggleWordWrap();
-        }
-
-        private void form_opacity_trackBar_ValueChanged_1(object sender, EventArgs e)
-        {
-            this.Opacity = form_opacity_trackBar.Value * 0.01;  // Adjust Form Opacity
-            noteSettings.Transparency = form_opacity_trackBar.Value * 0.01; // Add to settings object // Later on is saved together with the file
-        }
-
-        private void zoom_richtextbox_trackBar_ValueChanged_1(object sender, EventArgs e)
-        {
-            main_richTextBox.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
-            noteSettings.ZoomFactor = 1 + (float)(zoom_richtextbox_trackBar.Value * 0.05);
-        }
-
-        private void scroll_to_bottom_button_Click_1(object sender, EventArgs e)
-        {
-            main_richTextBox.SelectionStart = main_richTextBox.Text.Length;
-            main_richTextBox.ScrollToCaret();
-            main_richTextBox.Focus();
-        }
-
-        private void scroll_to_top_button_Click_1(object sender, EventArgs e)
-        {
-            main_richTextBox.SelectionStart = 0;
-            main_richTextBox.ScrollToCaret();
-            main_richTextBox.Focus();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
+  
 
         private void info_button_Click(object sender, EventArgs e)
         {
@@ -1700,28 +1622,5 @@ namespace Notes
             }
         }
 
-        private void main_richTextBox_LinkClicked_1(object sender, LinkClickedEventArgs e)
-        {
-            Process.Start("explorer", e.LinkText);
-        }
-
-        private void main_richTextBox_MouseUp_1(object sender, MouseEventArgs e)
-        {
-            ShowCharIndexAndLine();
-        }
-
-        private void main_richTextBox_TextChanged_1(object sender, EventArgs e)
-        {
-            MatchCollection wordCount = Regex.Matches(main_richTextBox.Text, @"[\W]+");
-            words_count_label.Text = "Words:" + wordCount.Count.ToString();
-
-            //int wordsCount = main_richTextBox.Text.Split(' ').Length;
-            //words_count_label.Text = "Words:" + wordsCount.ToString();
-        }
-
-        private void main_richTextBox_KeyDown_1(object sender, KeyEventArgs e)
-        {
-
-        }
     }
 }
